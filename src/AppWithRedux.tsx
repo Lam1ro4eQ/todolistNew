@@ -15,6 +15,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from './state/store';
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
+import {Login} from "./features/Login/Login";
 
 export type FilterValuesType = "all" | "active" | "completed";
 export type TodolistType = {
@@ -118,9 +119,11 @@ function AppWithRedux() {
                                     />
                                 </Paper>
                             </Grid>
+
                         })
                     }
                 </Grid>
+                <Login/>
             </Container>
         </div>
     );
