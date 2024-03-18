@@ -1,4 +1,4 @@
-import React, {useCallback, useReducer, useState} from 'react';
+import React, {useCallback, useEffect, useReducer, useState} from 'react';
 import './App.css';
 import {TaskType, Todolist} from './Todolist';
 import {v1} from 'uuid';
@@ -6,11 +6,10 @@ import {AddItemForm} from './AddItemForm';
 import {
     addTodolistAC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC,
-    removeTodolistAC,
-    todolistsReducer
+    changeTodolistTitleAC, fetschTodolistsTC,
+    removeTodolistAC
 } from './state/todolists-reducer';
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from './state/tasks-reducer';
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from './state/tasks-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from './state/store';
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
@@ -21,7 +20,7 @@ export type FilterValuesType = "all" | "active" | "completed";
 export type TodolistType = {
     id: string
     title: string
-    filter: FilterValuesType
+    filter?: FilterValuesType
 }
 
 export type TasksStateType = {
@@ -35,7 +34,11 @@ function AppWithRedux() {
 
     const todolists = useSelector<AppRootStateType, Array<TodolistType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<any>();
+
+    useEffect(()=> {
+        dispatch(fetschTodolistsTC())
+    },[])
 
     const removeTask = useCallback((id: string, todolistId: string) => {
         const action = removeTaskAC(id, todolistId);
@@ -99,9 +102,6 @@ function AppWithRedux() {
                         todolists.map(tl => {
                             let allTodolistTasks = tasks[tl.id];
                             let tasksForTodolist = allTodolistTasks;
-
-
-
                             return <Grid item key={tl.id}>
                                 <Paper style={{padding: "10px"}}>
                                     <Todolist
