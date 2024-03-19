@@ -1,4 +1,5 @@
 import axios from "axios";
+import {TaskType} from "../Todolist";
 
 
 const instance = axios.create({
@@ -21,6 +22,9 @@ export const todoListAPI = {
     },
     deleteTodoList(todoID: string) {
         return instance.delete<ResponseType<{item:TodoListType}>>(`todo-lists/${todoID}`)
+    },
+    getTasks() {
+        return instance.get<TaskType>(`/todo-lists/${todoID}/tasks`)
     },
 }
 

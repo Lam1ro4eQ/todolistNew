@@ -95,8 +95,8 @@ export const setTodolistsAC = (todolists: Array<TodolistType>): SetTodolistsActi
 
 
 
-export const fetschTodolistsTC = () => async (dispatch: Dispatch) => {
-       return await todoListAPI.getTodoList()
+export const fetschTodolistsTC = () => (dispatch: Dispatch) => {
+       return todoListAPI.getTodoList()
             .then((res) => {
                 dispatch(setTodolistsAC(res.data))
             })
