@@ -1,5 +1,4 @@
 import React, {useCallback, useEffect} from 'react';
-import {FilterValuesType} from './App';
 import {AddItemForm} from './AddItemForm';
 import {EditableSpan} from './EditableSpan';
 import {Button, IconButton} from "@mui/material";
@@ -8,6 +7,7 @@ import {Task} from "./Task";
 import {fetschTodolistsTC} from "./state/todolists-reducer";
 import {useDispatch} from "react-redux";
 import {fetschTasksTC} from "./state/tasks-reducer";
+import {FilterValuesType} from "./AppWithRedux";
 
 
 export type TaskType = {

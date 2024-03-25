@@ -1,6 +1,5 @@
 import {v1} from 'uuid';
-import {TodolistType, FilterValuesType} from "../AppWithRedux";
-import {todoListAPI} from "../api/todolist-api";
+import {todoListAPI, TodolistType} from "../api/todolist-api";
 import {Dispatch} from "redux";
 
 
@@ -27,9 +26,13 @@ export type SetTodolistsActionType = {
     type: 'SET-TODOLISTS',
     todolists: Array<TodolistType>
 }
+
+export type FilterValuesType = "all" | "active" | "completed";
+
 export type TodolistDomainType = TodolistType & {
     filter: FilterValuesType
 }
+
 
 type ActionsType = RemoveTodolistActionType | AddTodolistActionType
     | ChangeTodolistTitleActionType
