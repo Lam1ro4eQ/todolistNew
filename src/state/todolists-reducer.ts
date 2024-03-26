@@ -49,7 +49,9 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
             return [{
                 id: action.todolistId,
                 title: action.title,
-                filter: 'all'
+                filter: 'all',
+                addedDate: '',
+                order: 0
             }, ...state]
         }
         case 'CHANGE-TODOLIST-TITLE': {
