@@ -1,13 +1,8 @@
 import type {Meta, StoryObj} from '@storybook/react';
 import {action} from '@storybook/addon-actions';
-import {Button} from './Button';
-import {AddItemForm, AddItemFormPropsType} from "../AddItemForm";
-import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import TextField from "@mui/material/TextField/TextField";
-import {IconButton} from "@mui/material";
-import {AddBox} from "@mui/icons-material";
+import React, {useState} from "react";
 import {Task} from "../Task";
-import {TaskType} from "../Todolist";
+import {TaskPriorities, TaskStatuses} from "../api/todolist-api";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta: Meta<typeof Task> = {
@@ -26,7 +21,19 @@ const meta: Meta<typeof Task> = {
     args: {
         changeTaskStatus: action('changeTaskStatus'),
         removeTask: action('removeTask'),
-        task: {id: '11', title: 'JS', isDone: true},
+        task: {
+            id: '11',
+            title: 'JS',
+            status: TaskStatuses.Completed,
+            description: '',
+            completed: true,
+            priority: TaskPriorities.Low,
+            startDate: '',
+            deadline: '',
+            todoListId: '',
+            order: 0,
+            addedDate: ''
+        },
         todolistID: 'qwas12'
     }
 };
@@ -41,16 +48,39 @@ export const TaskIsDoneStory: Story = {
 export const TaskIsNotDoneStory: Story = {
     args: {
         task:
-            {id: '11', title: 'CSS', isDone: false}
+            {
+                id: '11', title: 'CSS',
+                status: TaskStatuses.New,
+                description: '',
+                completed: true,
+                priority: TaskPriorities.Low,
+                startDate: '',
+                deadline: '',
+                todoListId: '',
+                order: 0,
+                addedDate: ''
+            }
     }
 };
 
 
 const TaskExample = () => {
-    const [task, setTask] = useState({id: '12', title: 'JS', isDone: false})
+    const [task, setTask] = useState({
+        id: '12',
+        title: 'JS',
+        status: TaskStatuses.New,
+        description: '',
+        completed: true,
+        priority: TaskPriorities.Low,
+        startDate: '',
+        deadline: '',
+        todoListId: '',
+        order: 0,
+        addedDate: ''
+    })
     return <Task
         changeTaskTitle={(taskId: string, title: string) => setTask({...task, title: title})}
-        changeTaskStatus={() => setTask({...task, isDone: !task.isDone})}
+        changeTaskStatus={() => setTask({...task, status: TaskStatuses.Completed})}
         removeTask={action('remove task')}
         task={task}
         todolistID={'todolistID'}/>
