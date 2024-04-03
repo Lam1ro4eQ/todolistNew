@@ -116,7 +116,7 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
         case "SET-TASKS": {
             const stateCopy = {...state}
             stateCopy[action.todolistId] = action.tasks
-            return  stateCopy
+            return stateCopy
         }
         default:
             return state;
@@ -136,13 +136,15 @@ export const changeTaskTitleAC = (taskId: string, title: string, todolistId: str
     return {type: 'CHANGE-TASK-TITLE', title, todolistId, taskId}
 }
 export const setTasksAC = (tasks: Array<TaskType>, todolistId: string): SetTasksActionType => {
-    return {type: 'SET-TASKS',tasks, todolistId}
+    return {type: 'SET-TASKS', tasks, todolistId}
 }
 
 
-export const fetschTasksTC = () => (dispatch: Dispatch, todolistId: string) => {
-    return todoListAPI.getTasks(todolistId)
-        .then((res) => {
-            dispatch(setTasksAC(res.data.items, todolistId))
-        })
+export const fetschTasksTC = (todolistId: string) => {
+    return (dispatch: Dispatch) => {
+        todoListAPI.getTasks(todolistId)
+            .then((res) => {
+                dispatch(setTasksAC(res.data.items, todolistId))
+            })
+    }
 }

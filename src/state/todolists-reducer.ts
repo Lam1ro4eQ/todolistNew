@@ -73,7 +73,7 @@ export const todolistsReducer = (state: Array<TodolistDomainType> = initialState
         case "SET-TODOLISTS": {
             return action.todolists.map(tl => {
                 return {
-                    ...tl, filter:'all'
+                    ...tl, filter: 'all'
                 }
             })
         }
@@ -95,14 +95,15 @@ export const changeTodolistFilterAC = (id: string, filter: FilterValuesType): Ch
     return {type: 'CHANGE-TODOLIST-FILTER', id: id, filter: filter}
 }
 export const setTodolistsAC = (todolists: Array<TodolistType>): SetTodolistsActionType => {
-    return {type: 'SET-TODOLISTS', todolists:todolists}
+    return {type: 'SET-TODOLISTS', todolists: todolists}
 }
 
 
-
-export const fetschTodolistsTC = () => (dispatch: Dispatch) => {
-       return todoListAPI.getTodoList()
+export const fetschTodolistsTC = () => {
+    return (dispatch: Dispatch) => {
+         todoListAPI.getTodoList()
             .then((res) => {
                 dispatch(setTodolistsAC(res.data))
             })
+    }
 }

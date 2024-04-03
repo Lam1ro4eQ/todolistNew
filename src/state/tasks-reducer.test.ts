@@ -155,12 +155,8 @@ test('propertry with todolistId should be deleted', () => {
 
 test('empty arrays should be added when we set todolists', () => {
     const action = setTodolistsAC([
-        {
-            id: '1', title: 'title 1',  addedDate: '', order: 0
-        },
-        {
-            id: '2', title: 'title 2',  addedDate: '', order: 0
-        }
+        {id: '1', title: 'title 1',  addedDate: '', order: 0},
+        {id: '2', title: 'title 2',  addedDate: '', order: 0}
     ]);
 
     const endState = tasksReducer({}, action)
@@ -182,5 +178,5 @@ test('tasks should be added when for todolists', () => {
 
 
     expect(endState["todolistId1"].length).toBe(3);
-
+    expect(endState["todolistId2"].length).toBe(0);
 });
