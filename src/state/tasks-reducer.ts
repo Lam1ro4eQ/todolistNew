@@ -1,8 +1,8 @@
 import {TasksStateType} from '../App';
-import {v1} from 'uuid';
 import {AddTodolistActionType, RemoveTodolistActionType, SetTodolistsActionType} from './todolists-reducer';
 import {Dispatch} from "redux";
-import {TaskPriorities, TaskStatuses, TaskType, todoListAPI} from "../api/todolist-api";
+import {TaskPriorities, TaskStatuses, TaskType, todoListAPI, UpdateTaskModelType} from "../api/todolist-api";
+import {AppRootStateType} from "./store";
 
 export type RemoveTaskActionType = {
     type: 'REMOVE-TASK',
@@ -15,11 +15,11 @@ export type AddTaskActionType = {
     task: TaskType
 }
 
-export type ChangeTaskStatusActionType = {
-    type: 'CHANGE-TASK-STATUS',
+export type UpdateTaskActionType = {
+    type: 'UPDATE-TASK',
     todolistId: string
     taskId: string
-    status: TaskStatuses
+    model: UpdateTaskDomainModelType
 }
 
 export type ChangeTaskTitleActionType = {
@@ -37,7 +37,7 @@ export type SetTasksActionType = {
 }
 
 type ActionsType = RemoveTaskActionType | AddTaskActionType
-    | ChangeTaskStatusActionType
+    | UpdateTaskActionType
     | ChangeTaskTitleActionType
     | AddTodolistActionType
     | RemoveTodolistActionType
@@ -63,7 +63,7 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
             stateCopy[action.task.todoListId] = newTasks;
             return stateCopy;
         }
-        case 'CHANGE-TASK-STATUS': {
+        case 'UPDATE-TASK': {
             return {
                 ...state,
                 [action.todolistId]: state[action.todolistId].map(t => t.id === action.taskId ? {
@@ -84,7 +84,7 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
         case 'ADD-TODOLIST': {
             return {
                 ...state,
-                [action.todolistId]: []
+                [action.todolist.id]: []
             }
         }
         case 'REMOVE-TODOLIST': {
@@ -116,8 +116,8 @@ export const removeTaskAC = (taskId: string, todolistId: string): RemoveTaskActi
 export const addTaskAC = (task:TaskType): AddTaskActionType => {
     return {type: 'ADD-TASK', task}
 }
-export const changeTaskStatusAC = (taskId: string, status: TaskStatuses, todolistId: string): ChangeTaskStatusActionType => {
-    return {type: 'CHANGE-TASK-STATUS', status, todolistId, taskId}
+export const updateTaskAC = (taskId: string, model: UpdateTaskDomainModelType, todolistId: string): UpdateTaskActionType => {
+    return {type: 'UPDATE-TASK', model, todolistId, taskId}
 }
 export const changeTaskTitleAC = (taskId: string, title: string, todolistId: string): ChangeTaskTitleActionType => {
     return {type: 'CHANGE-TASK-TITLE', title, todolistId, taskId}
@@ -151,6 +151,42 @@ export const addTaskTC = (title: string, todolistId: string) => {
         todoListAPI.createTask(todolistId, title)
             .then(res => {
                 dispatch(addTaskAC(res.data.data.item))
+            })
+    }
+}
+
+type UpdateTaskDomainModelType = {
+    title?: string
+    description?: string
+    completed?: boolean
+    status?: TaskStatuses
+    priority?: TaskPriorities
+    startDate?: string
+    deadline?: string
+}
+
+export const updateTaskTC = (taskId: string, domainModel: UpdateTaskDomainModelType, todolistId: string) => {
+    return (dispatch: Dispatch, getState:()=> AppRootStateType) => {
+        const state = getState()
+        const task = state.tasks[todolistId].find(t=>t.id === taskId)
+        if(!task) {
+            //throw new Error("task not found the state")
+            console.warn("task not found the state")
+            return
+        }
+        const apiModel: UpdateTaskModelType = {
+            title: task.title,
+            description: task.description,
+            completed: task.completed,
+            status: task.status,
+            priority: task.priority,
+            startDate: task.startDate,
+            deadline: task.deadline,
+            ...domainModel
+        }
+        todoListAPI.updateTask(todolistId,taskId,apiModel)
+            .then((res) => {
+                dispatch(updateTaskAC(taskId,apiModel,todolistId))
             })
     }
 }

@@ -1,19 +1,19 @@
-import React, {useCallback, useEffect } from 'react';
+import React, {useCallback, useEffect} from 'react';
 import './App.css';
 import {Todolist} from './Todolist';
 import {v1} from 'uuid';
 import {AddItemForm} from './AddItemForm';
 import {
-    addTodolistAC,
+    addTodolistAC, addTodolistTC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC, fetschTodolistsTC, FilterValuesType,
+    changeTodolistTitleAC, changeTodolistTitleTC, fetschTodolistsTC, FilterValuesType,
     removeTodolistAC, removeTodolistTC, TodolistDomainType
 } from './state/todolists-reducer';
 import {
     addTaskTC,
-    changeTaskStatusAC,
+    updateTaskAC,
     changeTaskTitleAC,
-    removeTaskTC
+    removeTaskTC, updateTaskTC
 } from './state/tasks-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from './state/store';
@@ -21,8 +21,6 @@ import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography}
 import {Menu} from "@mui/icons-material";
 import {Login} from "./features/Login/Login";
 import {TaskStatuses, TaskType, todoListAPI} from "./api/todolist-api";
-
-
 
 
 export type TasksStateType = {
@@ -38,49 +36,49 @@ function AppWithRedux() {
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const dispatch = useDispatch<any>();
 
-    useEffect(()=> {
+    useEffect(() => {
         dispatch(fetschTodolistsTC())
-    },[])
+    }, [])
 
     const removeTask = useCallback((id: string, todolistId: string) => {
         const thunk = removeTaskTC(id, todolistId)
         dispatch(thunk)
-    },[])
+    }, [])
 
     const addTask = useCallback((title: string, todolistId: string) => {
         const thunk = addTaskTC(title, todolistId);
         dispatch(thunk);
-    },[dispatch])
+    }, [dispatch])
 
     const changeStatus = useCallback((id: string, status: TaskStatuses, todolistId: string) => {
-        const action = changeTaskStatusAC(id, status, todolistId);
-        dispatch(action);
-    },[dispatch])
+        const thunk = updateTaskTC(id, {status}, todolistId);
+        dispatch(thunk);
+    }, [dispatch])
 
     const changeTaskTitle = useCallback((id: string, newTitle: string, todolistId: string) => {
-        const action = changeTaskTitleAC(id, newTitle, todolistId);
-        dispatch(action);
-    },[dispatch])
+        const thunk = updateTaskTC(id, {title: newTitle}, todolistId);
+        dispatch(thunk);
+    }, [dispatch])
 
     const changeFilter = useCallback((value: FilterValuesType, todolistId: string) => {
         const action = changeTodolistFilterAC(todolistId, value);
         dispatch(action);
-    },[dispatch])
+    }, [dispatch])
 
     const removeTodolist = useCallback((id: string) => {
         const thunk = removeTodolistTC(id);
         dispatch(thunk);
-    },[])
+    }, [])
 
     const changeTodolistTitle = useCallback((id: string, title: string) => {
-        const action = changeTodolistTitleAC(id, title);
-        dispatch(action);
-    },[dispatch])
+        const thunk = changeTodolistTitleTC(id, title);
+        dispatch(thunk);
+    }, [dispatch])
 
     const addTodolist = useCallback((title: string) => {
-        const action = addTodolistAC(title);
-        dispatch(action);
-    },[dispatch])
+        const thunk = addTodolistTC(title);
+        dispatch(thunk);
+    }, [dispatch])
 
     return (
         <div className="App">
