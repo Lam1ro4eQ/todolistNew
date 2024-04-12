@@ -69,7 +69,7 @@ function AppWithReducers() {
     }
 
     function changeStatus(id: string, status: TaskStatuses, todolistId: string) {
-        const action = updateTaskAC(id, status, todolistId);
+        const action = updateTaskAC(id, {status}, todolistId);
         dispatchToTasks(action);
     }
 

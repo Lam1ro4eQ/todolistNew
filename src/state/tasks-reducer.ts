@@ -68,7 +68,7 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
                 ...state,
                 [action.todolistId]: state[action.todolistId].map(t => t.id === action.taskId ? {
                     ...t,
-                    status: action.status
+                    ...action.model
                 } : t)
             };
         }
@@ -158,7 +158,6 @@ export const addTaskTC = (title: string, todolistId: string) => {
 type UpdateTaskDomainModelType = {
     title?: string
     description?: string
-    completed?: boolean
     status?: TaskStatuses
     priority?: TaskPriorities
     startDate?: string
@@ -172,12 +171,11 @@ export const updateTaskTC = (taskId: string, domainModel: UpdateTaskDomainModelT
         if(!task) {
             //throw new Error("task not found the state")
             console.warn("task not found the state")
-            return
+            return;
         }
         const apiModel: UpdateTaskModelType = {
             title: task.title,
             description: task.description,
-            completed: task.completed,
             status: task.status,
             priority: task.priority,
             startDate: task.startDate,
@@ -186,7 +184,7 @@ export const updateTaskTC = (taskId: string, domainModel: UpdateTaskDomainModelT
         }
         todoListAPI.updateTask(todolistId,taskId,apiModel)
             .then((res) => {
-                dispatch(updateTaskAC(taskId,apiModel,todolistId))
+                dispatch(updateTaskAC(taskId,domainModel,todolistId))
             })
     }
 }

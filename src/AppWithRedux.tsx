@@ -4,23 +4,21 @@ import {Todolist} from './Todolist';
 import {v1} from 'uuid';
 import {AddItemForm} from './AddItemForm';
 import {
-    addTodolistAC, addTodolistTC,
+    addTodolistTC,
     changeTodolistFilterAC,
-    changeTodolistTitleAC, changeTodolistTitleTC, fetschTodolistsTC, FilterValuesType,
-    removeTodolistAC, removeTodolistTC, TodolistDomainType
+    changeTodolistTitleTC,
+    fetschTodolistsTC,
+    FilterValuesType,
+    removeTodolistTC,
+    TodolistDomainType
 } from './state/todolists-reducer';
-import {
-    addTaskTC,
-    updateTaskAC,
-    changeTaskTitleAC,
-    removeTaskTC, updateTaskTC
-} from './state/tasks-reducer';
+import {addTaskTC, removeTaskTC, updateTaskTC} from './state/tasks-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from './state/store';
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
 import {Login} from "./features/Login/Login";
-import {TaskStatuses, TaskType, todoListAPI} from "./api/todolist-api";
+import {TaskStatuses, TaskType} from "./api/todolist-api";
 
 
 export type TasksStateType = {
