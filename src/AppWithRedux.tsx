@@ -1,24 +1,12 @@
-import React, {useCallback, useEffect} from 'react';
+import React from 'react';
 import './App.css';
-import {Todolist} from './Todolist';
-import {v1} from 'uuid';
-import {AddItemForm} from './AddItemForm';
-import {
-    addTodolistTC,
-    changeTodolistFilterAC,
-    changeTodolistTitleTC,
-    fetschTodolistsTC,
-    FilterValuesType,
-    removeTodolistTC,
-    TodolistDomainType
-} from './state/todolists-reducer';
-import {addTaskTC, removeTaskTC, updateTaskTC} from './state/tasks-reducer';
-import {useDispatch, useSelector} from 'react-redux';
-import {AppRootStateType} from './state/store';
-import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
+import {AppBar, Button, Container, IconButton, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
 import {Login} from "./features/Login/Login";
-import {TaskStatuses, TaskType} from "./api/todolist-api";
+import {TaskType} from "./api/todolist-api";
+import {TodolistsList} from "./features/TodolistsList/TodolistsList";
+import {Routes, Route, Navigate} from "react-router-dom"
+import {useFormik} from "formik";
 
 
 export type TasksStateType = {
@@ -27,56 +15,15 @@ export type TasksStateType = {
 
 
 function AppWithRedux() {
-    let todolistId1 = v1();
-    let todolistId2 = v1();
 
-    const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
-    const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
-    const dispatch = useDispatch<any>();
-
-    useEffect(() => {
-        dispatch(fetschTodolistsTC())
-    }, [])
-
-    const removeTask = useCallback((id: string, todolistId: string) => {
-        const thunk = removeTaskTC(id, todolistId)
-        dispatch(thunk)
-    }, [])
-
-    const addTask = useCallback((title: string, todolistId: string) => {
-        const thunk = addTaskTC(title, todolistId);
-        dispatch(thunk);
-    }, [dispatch])
-
-    const changeStatus = useCallback((id: string, status: TaskStatuses, todolistId: string) => {
-        const thunk = updateTaskTC(id, {status}, todolistId);
-        dispatch(thunk);
-    }, [dispatch])
-
-    const changeTaskTitle = useCallback((id: string, newTitle: string, todolistId: string) => {
-        const thunk = updateTaskTC(id, {title: newTitle}, todolistId);
-        dispatch(thunk);
-    }, [dispatch])
-
-    const changeFilter = useCallback((value: FilterValuesType, todolistId: string) => {
-        const action = changeTodolistFilterAC(todolistId, value);
-        dispatch(action);
-    }, [dispatch])
-
-    const removeTodolist = useCallback((id: string) => {
-        const thunk = removeTodolistTC(id);
-        dispatch(thunk);
-    }, [])
-
-    const changeTodolistTitle = useCallback((id: string, title: string) => {
-        const thunk = changeTodolistTitleTC(id, title);
-        dispatch(thunk);
-    }, [dispatch])
-
-    const addTodolist = useCallback((title: string) => {
-        const thunk = addTodolistTC(title);
-        dispatch(thunk);
-    }, [dispatch])
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+        },
+        onSubmit: values => {
+            alert(JSON.stringify(values, null, 2));
+        },
+    });
 
     return (
         <div className="App">
@@ -92,36 +39,12 @@ function AppWithRedux() {
                 </Toolbar>
             </AppBar>
             <Container fixed>
-                <Grid container style={{padding: "20px"}}>
-                    <AddItemForm addItem={addTodolist}/>
-                </Grid>
-                <Grid container spacing={3}>
-                    {
-                        todolists.map(tl => {
-                            let allTodolistTasks = tasks[tl.id];
-                            let tasksForTodolist = allTodolistTasks;
-                            return <Grid item key={tl.id}>
-                                <Paper style={{padding: "10px"}}>
-                                    <Todolist
-                                        id={tl.id}
-                                        title={tl.title}
-                                        tasks={tasksForTodolist}
-                                        removeTask={removeTask}
-                                        changeFilter={changeFilter}
-                                        addTask={addTask}
-                                        changeTaskStatus={changeStatus}
-                                        filter={tl.filter}
-                                        removeTodolist={removeTodolist}
-                                        changeTaskTitle={changeTaskTitle}
-                                        changeTodolistTitle={changeTodolistTitle}
-                                    />
-                                </Paper>
-                            </Grid>
-
-                        })
-                    }
-                </Grid>
-                <Login/>
+                <Routes>
+                    <Route path={'/'} element={<TodolistsList/>}/>
+                    <Route path={'/login'} element={<Login/>}/>
+                    <Route path={'/404'} element={<h1>404: PAGE NOT FOUND</h1>}/>
+                    <Route path='*' element={<Navigate to={'/404'}/>}/>
+                </Routes>
             </Container>
         </div>
     );
