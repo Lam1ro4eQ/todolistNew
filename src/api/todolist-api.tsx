@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 
 
 const instance = axios.create({
@@ -8,7 +8,13 @@ const instance = axios.create({
         'API-KEY': 'b8306f23-b0d5-4635-b33a-87d1d8d8436e'
     }
 })
+export const authAPI = {
+    login(data: any) {
+        return instance.post<ResponseType<{ userId: number }>,AxiosResponse<ResponseType<{ userId: number }>>, any>(`/auth/login`, data)
+    }
+}
 
+//api
 export const todoListAPI = {
     getTodoList() {
         return instance.get<TodolistType[]>(`todo-lists`)
@@ -36,7 +42,8 @@ export const todoListAPI = {
     }
 }
 
- export type UpdateTaskModelType = {
+//types
+export type UpdateTaskModelType = {
     title: string
     description: string
     status: TaskStatuses
@@ -44,14 +51,12 @@ export const todoListAPI = {
     startDate: string
     deadline: string
 }
-
 export enum TaskStatuses {
     New = 0,
     InProgress = 1,
     Completed = 2,
     Draft = 3
 }
-
 export enum TaskPriorities {
     Low = 0,
     Middle = 1,
@@ -59,7 +64,6 @@ export enum TaskPriorities {
     Urgently = 3,
     Later = 4
 }
-
 export type TaskType = {
     description: string,
     title: string,
@@ -73,30 +77,30 @@ export type TaskType = {
     order: number,
     addedDate: string
 }
-
 export type GetTasksResponse = {
     error: string | null,
     totalCount: number,
     items: TaskType[]
 }
-
 export type TodolistType = {
     addedDate: string,
     id: string,
     order: number,
     title: string
 }
-
 export type UpdateAndDeleteTodolistResponseType = {
     data: {},
     messages: string[],
     fieldsErrors: string[],
     resultCode: number
 }
-
 export type ResponseType<T = {}> = {
     data: T,
     messages: string[],
     fieldsErrors: string[],
     resultCode: number
+}
+export type AuthLogin = {
+    email: string,
+    password: string
 }
