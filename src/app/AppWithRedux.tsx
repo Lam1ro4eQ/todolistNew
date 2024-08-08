@@ -2,9 +2,9 @@ import React from 'react';
 import './App.css';
 import {AppBar, Button, Container, IconButton, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
-import {Login} from "./features/Login/Login";
-import {TaskType} from "./api/todolist-api";
-import {TodolistsList} from "./features/TodolistsList/TodolistsList";
+import {Login} from "../features/Login/Login";
+import {TaskType} from "../api/todolist-api";
+import {TodolistsList} from "../features/TodolistsList/TodolistsList";
 import {Routes, Route, Navigate} from "react-router-dom"
 import {useFormik} from "formik";
 

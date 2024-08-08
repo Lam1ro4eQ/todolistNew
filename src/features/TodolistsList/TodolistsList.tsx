@@ -1,10 +1,10 @@
 import React, {useCallback, useEffect} from "react";
 import {Grid, Paper} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../state/store";
+import {AppRootStateType} from "../../app/store";
 import {TaskStatuses} from "../../api/todolist-api";
-import {TasksStateType} from "../../AppWithRedux";
-import {AddItemForm} from '../../AddItemForm';
+import {TasksStateType} from "../../app/AppWithRedux";
+import {AddItemForm} from '../../components/AddItemForm/AddItemForm';
 import {
     addTodolistTC,
     changeTodolistFilterAC,
@@ -13,9 +13,9 @@ import {
     FilterValuesType,
     removeTodolistTC,
     TodolistDomainType
-} from '../../state/todolists-reducer';
-import {addTaskTC, removeTaskTC, updateTaskTC} from '../../state/tasks-reducer';
-import {Todolist} from "../../Todolist";
+} from './todolists-reducer';
+import {addTaskTC, removeTaskTC, updateTaskTC} from './tasks-reducer';
+import {Todolist} from "./Todolist/Todolist";
 
 
 export const TodolistsList: React.FC = () => {
