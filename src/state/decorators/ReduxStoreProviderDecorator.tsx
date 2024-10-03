@@ -74,6 +74,10 @@ const initialGlobalState:AppRootStateType = {
                 todoListId: 'todolistId2'
             }
         ]
+    },
+    app: {
+        error: null,
+        status: 'idle'
     }
 };
 

@@ -17,14 +17,14 @@ export type TasksStateType = {
 
 function AppWithRedux() {
 
-    const formik = useFormik({
-        initialValues: {
-            email: '',
-        },
-        onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
-        },
-    });
+    // const formik = useFormik({
+    //     initialValues: {
+    //         email: '',
+    //     },
+    //     onSubmit: values => {
+    //         alert(JSON.stringify(values, null, 2));
+    //     },
+    // });
 
     return (
         <div className="App">
