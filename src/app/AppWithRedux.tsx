@@ -8,6 +8,9 @@ import {TodolistsList} from "../features/TodolistsList/TodolistsList";
 import {Routes, Route, Navigate} from "react-router-dom"
 import {useFormik} from "formik";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "./store";
+import {RequestStatusType} from "./app-reducer";
 
 
 export type TasksStateType = {
@@ -25,7 +28,7 @@ function AppWithRedux() {
     //         alert(JSON.stringify(values, null, 2));
     //     },
     // });
-
+    const status = useSelector<AppRootStateType, RequestStatusType>((state)=>state.app.status)
     return (
         <div className="App">
             <ErrorSnackbar/>
@@ -39,7 +42,7 @@ function AppWithRedux() {
                     </Typography>
                     <Button color="inherit">Login</Button>
                 </Toolbar>
-                <LinearProgress />
+                {status === 'loading' && <LinearProgress />}
             </AppBar>
             <Container fixed>
                 <Routes>
