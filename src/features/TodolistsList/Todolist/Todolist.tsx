@@ -10,7 +10,6 @@ import {FilterValuesType} from "../todolists-reducer";
 import {fetschTasksTC} from "../tasks-reducer";
 
 
-
 type PropsType = {
     id: string
     title: string
@@ -23,18 +22,20 @@ type PropsType = {
     removeTodolist: (id: string) => void
     changeTodolistTitle: (id: string, newTitle: string) => void
     filter: FilterValuesType
-
+    demo?: boolean
 }
 
 
-export const Todolist = React.memo((props: PropsType) => {
-    console.log("Todolist called")
+export const Todolist = React.memo(({demo = false, ...props}: PropsType) => {
 
-    const dispatch:any = useDispatch()
+    const dispatch: any = useDispatch()
 
-    useEffect(()=> {
+    useEffect(() => {
+        if (demo) {
+            return
+        }
         dispatch(fetschTasksTC(props.id))
-    },[])
+    }, [])
 
     const addTask = useCallback((title: string) => {
         props.addTask(title, props.id);
