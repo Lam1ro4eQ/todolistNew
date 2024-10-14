@@ -5,16 +5,17 @@ import {AddBox} from "@mui/icons-material";
 
 export type AddItemFormPropsType = {
     addItem: (title: string) => void
+    disabled?: boolean
 }
 
-export const AddItemForm = React.memo( (props: AddItemFormPropsType) => {
+export const AddItemForm = React.memo(({addItem, disabled = false}: AddItemFormPropsType) => {
     console.log("AddItemForm")
     let [title, setTitle] = useState("")
     let [error, setError] = useState<string | null>(null)
 
-    const addItem = () => {
+    const addItemHandler = () => {
         if (title.trim() !== "") {
-            props.addItem(title);
+            addItem(title);
             setTitle("");
         } else {
             setError("Title is required");
@@ -31,7 +32,7 @@ export const AddItemForm = React.memo( (props: AddItemFormPropsType) => {
         }
 
         if (e.charCode === 13) {
-            addItem();
+            addItemHandler();
         }
     }
 
@@ -43,9 +44,10 @@ export const AddItemForm = React.memo( (props: AddItemFormPropsType) => {
                    onKeyPress={onKeyPressHandler}
                    label="Title"
                    helperText={error}
+                   disabled={disabled}
         />
-        <IconButton color="primary" onClick={addItem}>
-            <AddBox />
+        <IconButton color="primary" onClick={addItemHandler} disabled={disabled}>
+            <AddBox/>
         </IconButton>
     </div>
 })

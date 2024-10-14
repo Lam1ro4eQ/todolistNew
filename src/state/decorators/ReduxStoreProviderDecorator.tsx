@@ -18,7 +18,7 @@ const rootReducer = combineReducers({
 const initialGlobalState: AppRootStateType = {
     todolists: [
         {id: "todolistId1", title: "What to learn", filter: "all", addedDate: '', order: 0, entityStatus: 'idle'},
-        {id: "todolistId2", title: "What to buy", filter: "all", addedDate: '', order: 0, entityStatus: 'idle'}
+        {id: "todolistId2", title: "What to buy", filter: "all", addedDate: '', order: 0, entityStatus: 'loading'}
     ],
     tasks: {
         ["todolistId1"]: [
@@ -87,6 +87,6 @@ const initialGlobalState: AppRootStateType = {
 export const storyBookStore = legacy_createStore(rootReducer, initialGlobalState, applyMiddleware(thunk));
 
 
-export const ReduxStoreProviderDecorator = (storyFn: () => React.ReactNode) => {
+export const ReduxStoreProviderDecorator = (storyFn:any) => {
     return <Provider store={storyBookStore}>{storyFn()}</Provider>
 }

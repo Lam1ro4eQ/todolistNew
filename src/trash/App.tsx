@@ -20,10 +20,10 @@ function App() {
 
     let [todolists, setTodolists] = useState<Array<TodolistDomainType>>([
         {
-            id: todolistId1, title: "What to learn", filter: "all", addedDate: '', order: 0
+            id: todolistId1, title: "What to learn", filter: "all", addedDate: '', order: 0, entityStatus:'idle'
         },
         {
-            id: todolistId2, title: "What to buy", filter: "all", addedDate: '', order: 0
+            id: todolistId2, title: "What to buy", filter: "all", addedDate: '', order: 0, entityStatus:'idle'
         }
     ])
 
@@ -165,8 +165,8 @@ function App() {
         let newTodolistId = v1();
         let newTodolist: TodolistDomainType = {
             id: newTodolistId, title: title, filter: 'all', addedDate: '',
-            order: 0
-        };
+            order: 0, entityStatus:'idle'
+    };
         setTodolists([newTodolist, ...todolists]);
         setTasks({
             ...tasks,
@@ -207,15 +207,12 @@ function App() {
                             return <Grid key={tl.id} item>
                                 <Paper style={{padding: "10px"}}>
                                     <Todolist
-                                        key={tl.id}
-                                        id={tl.id}
-                                        title={tl.title}
+                                        todolist={tl}
                                         tasks={tasksForTodolist}
                                         removeTask={removeTask}
                                         changeFilter={changeFilter}
                                         addTask={addTask}
                                         changeTaskStatus={changeStatus}
-                                        filter={tl.filter}
                                         removeTodolist={removeTodolist}
                                         changeTaskTitle={changeTaskTitle}
                                         changeTodolistTitle={changeTodolistTitle}

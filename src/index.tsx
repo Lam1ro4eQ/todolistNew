@@ -1,20 +1,21 @@
 import React from 'react';
 import {createRoot} from 'react-dom/client';
+import { BrowserRouter } from "react-router-dom";
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import AppWithRedux from './app/AppWithRedux';
 import {store} from './app/store';
 import {Provider} from 'react-redux';
-import {BrowserRouter} from "react-router-dom";
+//import {BrowserRouter} from "react-router-dom";
 
 const container = document.getElementById('root') as HTMLElement
 const root = createRoot(container);
 root.render(
-    <BrowserRouter>
+
         <Provider store={store}>
             <AppWithRedux/>
         </Provider>
-    </BrowserRouter>
+
 
 );
 

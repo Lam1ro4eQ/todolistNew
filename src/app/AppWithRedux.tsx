@@ -5,7 +5,7 @@ import {Menu} from "@mui/icons-material";
 import {Login} from "../features/Login/Login";
 import {TaskType} from "../api/todolist-api";
 import {TodolistsList} from "../features/TodolistsList/TodolistsList";
-import {Routes, Route, Navigate} from "react-router-dom"
+import {Routes, Route, Navigate, BrowserRouter} from "react-router-dom"
 import {useFormik} from "formik";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 import {useSelector} from "react-redux";
@@ -16,9 +16,11 @@ import {RequestStatusType} from "./app-reducer";
 export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
+type PropsType = {
+    demo?: boolean
+}
 
-
-function AppWithRedux() {
+function AppWithRedux({demo = true}: PropsType) {
 
     // const formik = useFormik({
     //     initialValues: {
@@ -45,12 +47,15 @@ function AppWithRedux() {
                 {status === 'loading' && <LinearProgress />}
             </AppBar>
             <Container fixed>
-                <Routes>
-                    <Route path={'/'} element={<TodolistsList/>}/>
-                    <Route path={'/login'} element={<Login/>}/>
-                    <Route path={'/404'} element={<h1>404: PAGE NOT FOUND</h1>}/>
-                    <Route path='*' element={<Navigate to={'/404'}/>}/>
-                </Routes>
+
+                <BrowserRouter>
+                    <Routes>
+                        <Route path={'/'} element={<TodolistsList demo={demo}/>}/>
+                        <Route path={'/login'} element={<Login/>}/>
+                        <Route path={'/404'} element={<h1>404: PAGE NOT FOUND</h1>}/>
+                        <Route path='*' element={<Navigate to={'/404'}/>}/>
+                    </Routes>
+                </BrowserRouter>
             </Container>
         </div>
     );

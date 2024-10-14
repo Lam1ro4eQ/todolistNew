@@ -71,6 +71,14 @@ const AddItemFormWithError = (props: AddItemFormPropsType) => {
         </IconButton>
     </div>
 }
+
+export const AddItemFormStoryDisabled = (props:any) => {
+    return (
+        <AddItemForm disabled={true} addItem={action('disabled')}/>
+    )
+}
+
+
 export const AddItemFormWithErrorStory: Story = {
     render: () => <AddItemFormWithError addItem={action('Button clicked inside from')}/>
 };
