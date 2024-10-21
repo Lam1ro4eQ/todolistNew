@@ -80,10 +80,12 @@ export const addTodolistTC = (title: string) => {
 }
 
 export const changeTodolistTitleTC = (todoID: string, title: string) => {
-    return (dispatch: Dispatch<ActionsType>) => {
+    return (dispatch: ThunkDispatch) => {
+        dispatch(setAppStatusAC('loading'));
         todoListAPI.updateTodoList(todoID, title)
             .then((res) => {
                 dispatch(changeTodolistTitleAC(todoID, title))
+                dispatch(setAppStatusAC('succeeded'));
             })
     }
 }

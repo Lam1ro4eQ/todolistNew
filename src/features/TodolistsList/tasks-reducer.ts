@@ -5,6 +5,8 @@ import {TaskPriorities, TaskStatuses, TaskType, todoListAPI, UpdateTaskModelType
 import {AppRootStateType} from "../../app/store";
 import {setAppErrorAC, SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "../../app/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
+import {Simulate} from "react-dom/test-utils";
+import error = Simulate.error;
 
 
 const initialState: TasksStateType = {}
@@ -68,7 +70,7 @@ export const setTasksAC = (tasks: Array<TaskType>, todolistId: string) =>
 export const fetschTasksTC = (todolistId: string) => (dispatch: Dispatch<ActionsType | SetAppStatusActionType>) => {
     dispatch(setAppStatusAC('loading'));
     todoListAPI.getTasks(todolistId)
-        .then((res) => {
+        .then(res => {
             dispatch(setTasksAC(res.data.items, todolistId))
             dispatch(setAppStatusAC('succeeded'));
         })
@@ -78,8 +80,15 @@ export const fetschTasksTC = (todolistId: string) => (dispatch: Dispatch<Actions
 export const removeTaskTC = (taskId: string, todolistId: string) => (dispatch: Dispatch<ActionsType>) => {
     todoListAPI.deleteTask(todolistId, taskId)
         .then(res => {
-            const action = removeTaskAC(taskId, todolistId);
-            dispatch(action);
+            if (res.data.resultCode === 0) {
+                const action = removeTaskAC(taskId, todolistId);
+                dispatch(action);
+            } else {
+                handleServerAppError(res.data, dispatch)
+            }
+        })
+        .catch((error) => {
+            handleServerNetworkError(error.message, dispatch)
         })
 }
 
@@ -95,7 +104,7 @@ export const addTaskTC = (title: string, todolistId: string) => (dispatch: Dispa
             }
         })
         .catch((error) => {
-            handleServerNetworkError(error.message,dispatch)
+            handleServerNetworkError(error.message, dispatch)
         })
 }
 
@@ -126,10 +135,9 @@ export const updateTaskTC = (taskId: string, domainModel: UpdateTaskDomainModelT
                 }
             })
             .catch((error) => {
-                handleServerNetworkError(error.message,dispatch)
+                handleServerNetworkError(error.message, dispatch)
             })
     }
-
 
 
 //types
