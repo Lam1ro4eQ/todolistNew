@@ -7,10 +7,11 @@ import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography}
 import {Menu} from "@mui/icons-material";
 import {FilterValuesType, TodolistDomainType} from "../features/TodolistsList/todolists-reducer";
 import {TaskPriorities, TaskStatuses, TaskType} from "../api/todolist-api";
+import {TaskDomainType} from "../features/TodolistsList/tasks-reducer";
 
 
 export type TasksStateType = {
-    [key: string]: Array<TaskType>
+    [key: string]: Array<TaskDomainType>
 }
 
 
@@ -20,10 +21,10 @@ function App() {
 
     let [todolists, setTodolists] = useState<Array<TodolistDomainType>>([
         {
-            id: todolistId1, title: "What to learn", filter: "all", addedDate: '', order: 0, entityStatus:'idle'
+            id: todolistId1, title: "What to learn", filter: "all", addedDate: '', order: 0, entityStatus: 'idle'
         },
         {
-            id: todolistId2, title: "What to buy", filter: "all", addedDate: '', order: 0, entityStatus:'idle'
+            id: todolistId2, title: "What to buy", filter: "all", addedDate: '', order: 0, entityStatus: 'idle'
         }
     ])
 
@@ -40,7 +41,8 @@ function App() {
                 description: '',
                 priority: TaskPriorities.Low,
                 startDate: '',
-                todoListId: todolistId1
+                todoListId: todolistId1,
+                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -53,7 +55,8 @@ function App() {
                 description: '',
                 priority: TaskPriorities.Low,
                 startDate: '',
-                todoListId: todolistId1
+                todoListId: todolistId1,
+                entityStatus: 'idle'
             }
         ],
         [todolistId2]: [
@@ -68,7 +71,8 @@ function App() {
                 description: '',
                 priority: TaskPriorities.Low,
                 startDate: '',
-                todoListId: todolistId2
+                todoListId: todolistId2,
+                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -81,7 +85,8 @@ function App() {
                 description: '',
                 priority: TaskPriorities.Low,
                 startDate: '',
-                todoListId: todolistId2
+                todoListId: todolistId2,
+                entityStatus: 'idle'
             }
         ]
     });
@@ -97,8 +102,18 @@ function App() {
 
     function addTask(title: string, todolistId: string) {
         let task = {
-            id: v1(), title: title, status: TaskStatuses.New, completed: true, addedDate: '',
-            order: 0, deadline: '', description: '', priority: TaskPriorities.Low, startDate: '', todoListId: todolistId
+            id: v1(),
+            title: title,
+            status: TaskStatuses.New,
+            completed: true,
+            addedDate: '',
+            order: 0,
+            deadline: '',
+            description: '',
+            priority: TaskPriorities.Low,
+            startDate: '',
+            todoListId: todolistId,
+            entityStatus: 'idle'
         };
         //достанем нужный массив по todolistId:
         let todolistTasks = tasks[todolistId];
@@ -165,8 +180,8 @@ function App() {
         let newTodolistId = v1();
         let newTodolist: TodolistDomainType = {
             id: newTodolistId, title: title, filter: 'all', addedDate: '',
-            order: 0, entityStatus:'idle'
-    };
+            order: 0, entityStatus: 'idle'
+        };
         setTodolists([newTodolist, ...todolists]);
         setTasks({
             ...tasks,

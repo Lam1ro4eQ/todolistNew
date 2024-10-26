@@ -11,10 +11,11 @@ import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "./store";
 import {RequestStatusType} from "./app-reducer";
+import {TaskDomainType} from "../features/TodolistsList/tasks-reducer";
 
 
 export type TasksStateType = {
-    [key: string]: Array<TaskType>
+    [key: string]: Array<TaskDomainType>
 }
 type PropsType = {
     demo?: boolean
