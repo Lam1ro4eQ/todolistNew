@@ -6,7 +6,7 @@ import {TaskStatuses, TaskType} from "../../../../api/todolist-api";
 import {TaskDomainType} from "../../tasks-reducer";
 import {RequestStatusType} from "../../../../app/app-reducer";
 
-type TaskPropsType = {
+export type TaskPropsType = {
     changeTaskTitle: (taskId: string, newTitle: string, todolistId: string) => void
     changeTaskStatus: (id: string, status: TaskStatuses, todolistId: string) => void
     removeTask: (taskId: string, todolistId: string) => void

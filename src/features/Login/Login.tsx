@@ -61,21 +61,23 @@ export const Login = () => {
                             helperText={formik.touched.email && formik.errors.email}
                             {...formik.getFieldProps('email')}
                         />
-                        {formik.touched.email && formik.errors.email && <div style={{color:"red"}}>{formik.errors.email}</div>}
+                        {formik.touched.email && formik.errors.email &&
+                        <div style={{color: "red"}}>{formik.errors.email}</div>}
                         <TextField
                             type='password'
                             margin='normal'
                             label='Password'
-                            error={!!(formik.touched.password &&formik.errors.password)}
+                            error={!!(formik.touched.password && formik.errors.password)}
                             {...formik.getFieldProps('password')}
                         />
-                        {formik.touched.password && formik.errors.password ? <div style={{color:"red"}}>{formik.errors.password}</div> : null}
+                        {formik.touched.password && formik.errors.password ?
+                            <div style={{color: "red"}}>{formik.errors.password}</div> : null}
                         <FormControlLabel control={<Checkbox name={'rememberMe'}/>} label={'Remember me'}/>
                         <Button type={'submit'} variant={'contained'} color={'primary'}>
                             Login
                         </Button>
                     </FormGroup>
-                    </form>
+                </form>
             </FormControl>
         </Grid>
     </Grid>

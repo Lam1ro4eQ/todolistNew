@@ -15,6 +15,7 @@ import {addTaskAC, updateTaskAC, changeTaskTitleAC, removeTaskAC, tasksReducer} 
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
 import {TaskPriorities, TaskStatuses} from "../api/todolist-api";
+import {TaskPropsType} from "../features/TodolistsList/Todolist/Task/Task";
 
 
 
@@ -28,7 +29,7 @@ function AppWithReducers() {
         {id: todolistId2, title: "What to buy", filter: "all",  addedDate: '', order: 0, entityStatus:'idle' }
     ])
 
-    let [tasks, dispatchToTasks] = useReducer(tasksReducer, {
+    let [tasks, dispatchToTasks] = useReducer<any>(tasksReducer, {
         [todolistId1]: [
             {id: v1(), title: "HTML&CSS", status: TaskStatuses.Completed, completed: true, addedDate: '',
                 order: 0, deadline: '', description:'', priority: TaskPriorities.Low, startDate: '', todoListId: todolistId1},
