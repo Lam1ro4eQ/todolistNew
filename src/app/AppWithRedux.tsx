@@ -23,15 +23,10 @@ type PropsType = {
 
 function AppWithRedux({demo = true}: PropsType) {
 
-    // const formik = useFormik({
-    //     initialValues: {
-    //         email: '',
-    //     },
-    //     onSubmit: values => {
-    //         alert(JSON.stringify(values, null, 2));
-    //     },
-    // });
+
+
     const status = useSelector<AppRootStateType, RequestStatusType>((state)=>state.app.status)
+
     return (
         <div className="App">
             <ErrorSnackbar/>

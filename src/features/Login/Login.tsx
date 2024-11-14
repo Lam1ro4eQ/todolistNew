@@ -38,6 +38,7 @@ export const Login = () => {
     });
 
 
+
     return <Grid container justifyContent={'center'}>
         <Grid item justifyContent={'center'}>
             <FormControl>
@@ -72,7 +73,11 @@ export const Login = () => {
                         />
                         {formik.touched.password && formik.errors.password ?
                             <div style={{color: "red"}}>{formik.errors.password}</div> : null}
-                        <FormControlLabel control={<Checkbox name={'rememberMe'}/>} label={'Remember me'}/>
+                        <FormControlLabel control={
+                            <Checkbox {...formik.getFieldProps('rememberMe')}  name={'rememberMe'}
+                                      checked={formik.values.rememberMe}
+                            />}
+                                          label={'Remember me'}/>
                         <Button type={'submit'} variant={'contained'} color={'primary'}>
                             Login
                         </Button>
