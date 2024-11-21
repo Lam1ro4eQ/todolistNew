@@ -1,4 +1,5 @@
 import axios, {AxiosResponse} from "axios";
+import {LoginDataType} from "../features/Login/Login";
 
 
 const instance = axios.create({
@@ -8,13 +9,16 @@ const instance = axios.create({
         'API-KEY': '66bc136a-cd11-4e15-b397-0a511465a9b0'
     }
 })
+
+
+//api
+
 export const authAPI = {
-    login(data: any) {
-        return instance.post<ResponseType<{ userId: number }>,AxiosResponse<ResponseType<{ userId: number }>>, any>(`/auth/login`, data)
+    login(data: LoginDataType) {
+        return instance.post<ResponseType<{ userId: number }>,AxiosResponse<ResponseType<{ userId: number }>>, LoginDataType>(`/auth/login`, data)
     }
 }
 
-//api
 export const todoListAPI = {
     getTodoList() {
         return instance.get<TodolistType[]>(`todo-lists`)

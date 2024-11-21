@@ -1,6 +1,15 @@
 import React from 'react';
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from "@mui/material";
 import {useFormik} from "formik";
+import {useDispatch} from "react-redux";
+import {loginTC} from "./auth-reducer";
+
+export type LoginDataType = {
+    email: string
+    password: string
+    rememberMe?: boolean
+    captcha?: string
+}
 
 export const Login = () => {
 
@@ -9,6 +18,11 @@ export const Login = () => {
         password?: string
         rememberMe?: boolean
     }
+
+
+
+
+
 
     const formik = useFormik({
         initialValues: {
@@ -32,7 +46,7 @@ export const Login = () => {
         },
         onSubmit: values => {
             // alert(JSON.stringify(values, null, 2));
-
+            dispatch(loginTC(values))
             formik.resetForm();
         },
     });
