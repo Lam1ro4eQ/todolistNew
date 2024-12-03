@@ -1,27 +1,26 @@
 import React from 'react';
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from "@mui/material";
 import {useFormik} from "formik";
-import {useDispatch} from "react-redux";
 import {loginTC} from "./auth-reducer";
+import {useDispatch} from "react-redux";
+import {useAppDispatch, useAppSelector} from "../../app/store";
+import {Navigate} from "react-router-dom"
 
 export type LoginDataType = {
     email: string
     password: string
-    rememberMe?: boolean
-    captcha?: string
+    rememberMe: boolean
 }
 
 export const Login = () => {
 
+    const dispatch = useAppDispatch()
+    const isLoggerIn = useAppSelector((state) => state.auth.isLoggedIn)
+
     type FormikErrorType = {
         email?: string
         password?: string
-        rememberMe?: boolean
     }
-
-
-
-
 
 
     const formik = useFormik({
@@ -45,13 +44,15 @@ export const Login = () => {
             return errors
         },
         onSubmit: values => {
-            // alert(JSON.stringify(values, null, 2));
             dispatch(loginTC(values))
             formik.resetForm();
         },
     });
 
 
+    if (isLoggerIn) {
+        return <Navigate to={'/'}/>
+    }
 
     return <Grid container justifyContent={'center'}>
         <Grid item justifyContent={'center'}>
