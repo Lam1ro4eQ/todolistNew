@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from "react";
 import {Grid, Paper} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../../app/store";
+import {AppRootStateType, useAppSelector} from "../../app/store";
 import {TaskStatuses} from "../../api/todolist-api";
 import {TasksStateType} from "../../app/AppWithRedux";
 import {AddItemForm} from '../../components/AddItemForm/AddItemForm';
@@ -16,6 +16,7 @@ import {
 } from './todolists-reducer';
 import {addTaskTC, removeTaskTC, updateTaskTC} from './tasks-reducer';
 import {Todolist} from "./Todolist/Todolist";
+import {Navigate} from "react-router-dom";
 
 type PropsType = {
     demo?: boolean
@@ -25,11 +26,10 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
     const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
     const dispatch = useDispatch<any>();
+    const isLoggerIn = useAppSelector((state) => state.auth.isLoggedIn)
 
     useEffect(() => {
-        // if (demo) {
-        //     return
-        // }
+        if (!isLoggerIn) return
         dispatch(fetschTodolistsTC())
     }, [])
 
@@ -72,6 +72,10 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
         const thunk = addTodolistTC(title);
         dispatch(thunk);
     }, [dispatch])
+
+    if (!isLoggerIn) {
+        return <Navigate to={'Login'}/>
+    }
 
     return <>
         <Grid container style={{padding: "20px"}}>

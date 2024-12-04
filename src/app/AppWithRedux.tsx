@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {AppBar, Button, Container, IconButton, LinearProgress, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
@@ -9,9 +9,10 @@ import {Routes, Route, Navigate, BrowserRouter} from "react-router-dom"
 import {useFormik} from "formik";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 import {useSelector} from "react-redux";
-import {AppRootStateType} from "./store";
+import {AppRootStateType, useAppDispatch} from "./store";
 import {RequestStatusType} from "./app-reducer";
 import {TaskDomainType} from "../features/TodolistsList/tasks-reducer";
+import {meTC} from "../features/Login/auth-reducer";
 
 
 export type TasksStateType = {
@@ -22,10 +23,12 @@ type PropsType = {
 }
 
 function AppWithRedux({demo = true}: PropsType) {
-
-
-
+    const dispatch = useAppDispatch()
     const status = useSelector<AppRootStateType, RequestStatusType>((state)=>state.app.status)
+
+    useEffect(()=>{
+        dispatch(meTC())
+    },[])
 
     return (
         <div className="App">
