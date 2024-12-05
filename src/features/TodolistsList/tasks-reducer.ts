@@ -203,6 +203,6 @@ type ActionsType =
 type ThunkDispatch = Dispatch<ActionsType | SetAppStatusActionType | SetAppErrorActionType>
 
 export type TaskDomainType = TaskType & {
-    entityStatus: RequestStatusType
+    entityStatus?: RequestStatusType
 }
 

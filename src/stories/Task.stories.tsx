@@ -32,7 +32,8 @@ const meta: Meta<typeof Task> = {
             deadline: '',
             todoListId: '',
             order: 0,
-            addedDate: ''
+            addedDate: '',
+            entityStatus:'idle'
         },
         todolistID: 'qwas12'
     }
@@ -58,7 +59,8 @@ export const TaskIsNotDoneStory: Story = {
                 deadline: '',
                 todoListId: '',
                 order: 0,
-                addedDate: ''
+                addedDate: '',
+                entityStatus:'idle'
             }
     }
 };
@@ -76,7 +78,8 @@ const TaskExample = () => {
         deadline: '',
         todoListId: '',
         order: 0,
-        addedDate: ''
+        addedDate: '',
+        entityStatus:'idle'
     })
     return <Task
         changeTaskTitle={(taskId: string, title: string) => setTask({...task, title: title})}

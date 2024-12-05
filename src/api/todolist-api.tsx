@@ -19,7 +19,10 @@ export const authAPI = {
     },
     login(data: LoginDataType) {
         return instance.post<ResponseType<{ userId: number }>,AxiosResponse<ResponseType<{ userId: number }>>, LoginDataType>(`/auth/login`, data)
-    }
+    },
+    logout() {
+        return instance.delete<ResponseType>(`/auth/login`)
+    },
 }
 
 export const todoListAPI = {

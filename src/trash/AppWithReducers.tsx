@@ -16,6 +16,7 @@ import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography}
 import {Menu} from "@mui/icons-material";
 import {TaskPriorities, TaskStatuses} from "../api/todolist-api";
 import {TaskPropsType} from "../features/TodolistsList/Todolist/Task/Task";
+import {TasksStateType} from "../app/AppWithRedux";
 
 
 
@@ -29,7 +30,7 @@ function AppWithReducers() {
         {id: todolistId2, title: "What to buy", filter: "all",  addedDate: '', order: 0, entityStatus:'idle' }
     ])
 
-    let [tasks, dispatchToTasks] = useReducer<any>(tasksReducer, {
+    let [tasks, dispatchToTasks] = useReducer(tasksReducer, {
         [todolistId1]: [
             {id: v1(), title: "HTML&CSS", status: TaskStatuses.Completed, completed: true, addedDate: '',
                 order: 0, deadline: '', description:'', priority: TaskPriorities.Low, startDate: '', todoListId: todolistId1},
@@ -63,7 +64,8 @@ function AppWithReducers() {
                 description: "",
                 addedDate: "",
                 startDate:"",
-                priority: TaskPriorities.Low
+                priority: TaskPriorities.Low,
+                entityStatus:'idle'
             }
         );
         dispatchToTasks(action);

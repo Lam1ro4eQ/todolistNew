@@ -8,11 +8,13 @@ import {v1} from "uuid";
 import {TaskPriorities, TaskStatuses} from "../../api/todolist-api";
 import {appReducer} from "../../app/app-reducer";
 import {thunk} from "redux-thunk";
+import {authReducer} from "../../features/Login/auth-reducer";
 
 const rootReducer = combineReducers({
     tasks: tasksReducer,
     todolists: todolistsReducer,
-    app: appReducer
+    app: appReducer,
+    auth: authReducer
 })
 
 const initialGlobalState: AppRootStateType = {
@@ -33,7 +35,8 @@ const initialGlobalState: AppRootStateType = {
                 description: '',
                 priority: TaskPriorities.Low,
                 startDate: '',
-                todoListId: 'todolistId1'
+                todoListId: 'todolistId1',
+                entityStatus: 'idle'
             },
             {
                 id: v1(),
@@ -46,7 +49,9 @@ const initialGlobalState: AppRootStateType = {
                 description: '',
                 priority: TaskPriorities.Low,
                 startDate: '',
-                todoListId: 'todolistId1'
+                todoListId: 'todolistId1',
+                entityStatus: 'idle'
+
             }
         ],
         ["todolistId2"]: [
@@ -61,7 +66,8 @@ const initialGlobalState: AppRootStateType = {
                 description: '',
                 priority: TaskPriorities.Low,
                 startDate: '',
-                todoListId: 'todolistId2'
+                todoListId: 'todolistId2',
+                entityStatus:'idle'
             },
             {
                 id: v1(),
@@ -74,19 +80,21 @@ const initialGlobalState: AppRootStateType = {
                 description: '',
                 priority: TaskPriorities.Low,
                 startDate: '',
-                todoListId: 'todolistId2'
+                todoListId: 'todolistId2',
+                entityStatus:'idle'
             }
         ]
     },
     app: {
         error: null,
-        status: 'idle'
+        status: 'idle',
+        isInitialized: false
     }
 };
 
 export const storyBookStore = legacy_createStore(rootReducer, initialGlobalState, applyMiddleware(thunk));
 
 
-export const ReduxStoreProviderDecorator = (storyFn:any) => {
+export const ReduxStoreProviderDecorator = (storyFn: any) => {
     return <Provider store={storyBookStore}>{storyFn()}</Provider>
 }

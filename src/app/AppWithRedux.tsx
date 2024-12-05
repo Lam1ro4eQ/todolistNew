@@ -1,6 +1,15 @@
 import React, {useEffect} from 'react';
 import './App.css';
-import {AppBar, Button, Container, IconButton, LinearProgress, Toolbar, Typography} from "@mui/material";
+import {
+    AppBar,
+    Button,
+    CircularProgress,
+    Container,
+    IconButton,
+    LinearProgress,
+    Toolbar,
+    Typography
+} from "@mui/material";
 import {Menu} from "@mui/icons-material";
 import {Login} from "../features/Login/Login";
 import {TaskType} from "../api/todolist-api";
@@ -9,10 +18,10 @@ import {Routes, Route, Navigate, BrowserRouter} from "react-router-dom"
 import {useFormik} from "formik";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 import {useSelector} from "react-redux";
-import {AppRootStateType, useAppDispatch} from "./store";
+import {AppRootStateType, useAppDispatch, useAppSelector} from "./store";
 import {RequestStatusType} from "./app-reducer";
 import {TaskDomainType} from "../features/TodolistsList/tasks-reducer";
-import {meTC} from "../features/Login/auth-reducer";
+import {logOutTC, meTC} from "../features/Login/auth-reducer";
 
 
 export type TasksStateType = {
@@ -25,10 +34,22 @@ type PropsType = {
 function AppWithRedux({demo = true}: PropsType) {
     const dispatch = useAppDispatch()
     const status = useSelector<AppRootStateType, RequestStatusType>((state)=>state.app.status)
+    const isInitialized = useAppSelector((state) => state.app.isInitialized)
+    const isLoggerIn = useAppSelector((state) => state.auth.isLoggedIn)
+
+    const logOut = () => {
+        dispatch(logOutTC())
+    }
 
     useEffect(()=>{
         dispatch(meTC())
     },[])
+
+    if (!isInitialized) {
+       return <div style={{position: 'fixed', top:'30%', textAlign: 'center', width:'100%'}}>
+            <CircularProgress/>
+        </div>
+    }
 
     return (
         <div className="App">
@@ -41,7 +62,7 @@ function AppWithRedux({demo = true}: PropsType) {
                     <Typography variant="h6">
                         News
                     </Typography>
-                    <Button color="inherit">Login</Button>
+                    {isLoggerIn && <Button color="inherit" onClick={logOut}>Log out</Button>}
                 </Toolbar>
                 {status === 'loading' && <LinearProgress />}
             </AppBar>

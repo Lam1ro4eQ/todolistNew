@@ -1,4 +1,9 @@
-import {setAppStatusAC, SetAppStatusActionType} from "../../app/app-reducer";
+import {
+    setAppIsInitializedAC,
+    setAppIsInitializedType,
+    setAppStatusAC,
+    SetAppStatusActionType
+} from "../../app/app-reducer";
 import {Dispatch} from "redux";
 import {authAPI} from "../../api/todolist-api";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
@@ -30,7 +35,7 @@ const setIsLoggedInAC = (value: boolean) => {
 type ActionsType = ReturnType<typeof setIsLoggedInAC>
 
 // thunks
-export const meTC = () => async (dispatch: Dispatch<ActionsType | SetAppStatusActionType>) => {
+export const meTC = () => async (dispatch: Dispatch<ActionsType | SetAppStatusActionType | setAppIsInitializedType>) => {
     dispatch(setAppStatusAC('loading'))
 
     try {
@@ -43,6 +48,8 @@ export const meTC = () => async (dispatch: Dispatch<ActionsType | SetAppStatusAc
         }
     } catch (e) {
         handleServerNetworkError(e as { message: string }, dispatch)
+    } finally {
+        dispatch(setAppIsInitializedAC(true))
     }
 
 }
@@ -61,5 +68,20 @@ export const loginTC = (loginData: LoginDataType) => async (dispatch: Dispatch<A
     } catch (e) {
         handleServerNetworkError(e as { message: string }, dispatch)
     }
+}
 
+export const logOutTC = () => async (dispatch: Dispatch<ActionsType | SetAppStatusActionType>) => {
+    dispatch(setAppStatusAC('loading'))
+
+    try {
+        const res = await authAPI.logout()
+        if (res.data.resultCode === 0) {
+            dispatch(setIsLoggedInAC(false))
+            dispatch(setAppStatusAC('idle'))
+        } else {
+            handleServerAppError(res.data, dispatch)
+        }
+    } catch (e) {
+        handleServerNetworkError(e as { message: string }, dispatch)
+    }
 }
