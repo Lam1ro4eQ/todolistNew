@@ -89,6 +89,9 @@ const initialGlobalState: AppRootStateType = {
         error: null,
         status: 'idle',
         isInitialized: false
+    },
+    auth: {
+        isLoggedIn: false // или true, если пользователь авторизован
     }
 };
 

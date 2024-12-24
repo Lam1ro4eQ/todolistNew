@@ -8,6 +8,7 @@ import {Menu} from "@mui/icons-material";
 import {FilterValuesType, TodolistDomainType} from "../features/TodolistsList/todolists-reducer";
 import {TaskPriorities, TaskStatuses, TaskType} from "../api/todolist-api";
 import {TaskDomainType} from "../features/TodolistsList/tasks-reducer";
+import {RequestStatusType} from "../app/app-reducer";
 
 
 export type TasksStateType = {
@@ -42,7 +43,7 @@ function App() {
                 priority: TaskPriorities.Low,
                 startDate: '',
                 todoListId: todolistId1,
-                entityStatus: 'idle'
+                entityStatus: 'idle' as RequestStatusType
             },
             {
                 id: v1(),
@@ -56,7 +57,7 @@ function App() {
                 priority: TaskPriorities.Low,
                 startDate: '',
                 todoListId: todolistId1,
-                entityStatus: 'idle'
+                entityStatus: 'idle' as RequestStatusType
             }
         ],
         [todolistId2]: [
@@ -72,7 +73,7 @@ function App() {
                 priority: TaskPriorities.Low,
                 startDate: '',
                 todoListId: todolistId2,
-                entityStatus: 'idle'
+                entityStatus: 'idle' as RequestStatusType
             },
             {
                 id: v1(),
@@ -86,7 +87,7 @@ function App() {
                 priority: TaskPriorities.Low,
                 startDate: '',
                 todoListId: todolistId2,
-                entityStatus: 'idle'
+                entityStatus: 'idle' as RequestStatusType
             }
         ]
     });
@@ -113,7 +114,7 @@ function App() {
             priority: TaskPriorities.Low,
             startDate: '',
             todoListId: todolistId,
-            entityStatus: 'idle'
+            entityStatus: 'idle' as RequestStatusType
         };
         //достанем нужный массив по todolistId:
         let todolistTasks = tasks[todolistId];

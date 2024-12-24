@@ -3,6 +3,7 @@ import {action} from '@storybook/addon-actions';
 import React, {useState} from "react";
 import {Task} from "../features/TodolistsList/Todolist/Task/Task";
 import {TaskPriorities, TaskStatuses} from "../api/todolist-api";
+import {RequestStatusType} from "../app/app-reducer";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta: Meta<typeof Task> = {
@@ -33,7 +34,7 @@ const meta: Meta<typeof Task> = {
             todoListId: '',
             order: 0,
             addedDate: '',
-            entityStatus:'idle'
+            entityStatus:'idle' as RequestStatusType
         },
         todolistID: 'qwas12'
     }
@@ -60,7 +61,7 @@ export const TaskIsNotDoneStory: Story = {
                 todoListId: '',
                 order: 0,
                 addedDate: '',
-                entityStatus:'idle'
+                entityStatus:'idle' as RequestStatusType
             }
     }
 };
@@ -79,7 +80,7 @@ const TaskExample = () => {
         todoListId: '',
         order: 0,
         addedDate: '',
-        entityStatus:'idle'
+        entityStatus:'idle' as RequestStatusType
     })
     return <Task
         changeTaskTitle={(taskId: string, title: string) => setTask({...task, title: title})}
