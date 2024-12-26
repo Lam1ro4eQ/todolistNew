@@ -43,6 +43,7 @@ export const changeTodolistEntityStatusAC = (id: string, entityStatus: RequestSt
 export const setTodolistsAC = (todolists: Array<TodolistType>) => {
     return {type: 'SET-TODOLISTS', todolists} as const
 }
+export const clearTodolost = ()=> {return []}
 
 //thunks
 export const fetschTodolistsTC = () => {

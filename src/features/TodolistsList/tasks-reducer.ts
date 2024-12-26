@@ -90,6 +90,7 @@ export const changeTaskTitleAC = (taskId: string, title: string, todolistId: str
     ({type: 'CHANGE-TASK-TITLE', title, todolistId, taskId} as const)
 export const setTasksAC = (tasks: Array<TaskDomainType>, todolistId: string) =>
     ({type: 'SET-TASKS', tasks, todolistId} as const)
+export const clearTasks = ()=> {return {}}
 export const changeTaskEntityStatusAC = (taskId: string, todolistId: string, entityStatus: RequestStatusType) => {
     return {type: 'CHANGE-TASK-ENTITY-STATUS', taskId, todolistId, entityStatus} as const
 }

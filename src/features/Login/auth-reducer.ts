@@ -9,6 +9,7 @@ import {authAPI} from "../../api/todolist-api";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 import {LoginDataType} from "./Login";
 
+
 type InitialStateType = typeof initialState
 
 const initialState = {
@@ -77,6 +78,7 @@ export const logOutTC = () => async (dispatch: Dispatch<ActionsType | SetAppStat
         const res = await authAPI.logout()
         if (res.data.resultCode === 0) {
             dispatch(setIsLoggedInAC(false))
+
             dispatch(setAppStatusAC('idle'))
         } else {
             handleServerAppError(res.data, dispatch)
