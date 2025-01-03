@@ -4,7 +4,7 @@ import {EditableSpan} from "../../../../components/EditableSpan/EditableSpan";
 import {Delete} from "@mui/icons-material";
 import {TaskStatuses, TaskType} from "../../../../api/todolist-api";
 import {TaskDomainType} from "../../tasks-reducer";
-import {RequestStatusType} from "../../../../app/app-reducer";
+import {RequestStatusType} from "../../../../app/appSlice";
 
 export type TaskPropsType = {
     changeTaskTitle: (taskId: string, newTitle: string, todolistId: string) => void

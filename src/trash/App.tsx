@@ -8,7 +8,7 @@ import {Menu} from "@mui/icons-material";
 import {FilterValuesType, TodolistDomainType} from "../features/TodolistsList/todolists-reducer";
 import {TaskPriorities, TaskStatuses, TaskType} from "../api/todolist-api";
 import {TaskDomainType} from "../features/TodolistsList/tasks-reducer";
-import {RequestStatusType} from "../app/app-reducer";
+import {RequestStatusType} from "../app/appSlice";
 
 
 export type TasksStateType = {

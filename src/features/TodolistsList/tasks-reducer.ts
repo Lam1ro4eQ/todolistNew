@@ -20,7 +20,7 @@ import {
     SetAppErrorActionType,
     setAppStatusAC,
     SetAppStatusActionType
-} from "../../app/app-reducer";
+} from "../../app/appSlice";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 import {Simulate} from "react-dom/test-utils";
 import error = Simulate.error;

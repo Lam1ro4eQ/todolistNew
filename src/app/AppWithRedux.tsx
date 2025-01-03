@@ -19,9 +19,9 @@ import {useFormik} from "formik";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch, useAppSelector} from "./store";
-import {RequestStatusType} from "./app-reducer";
+import {RequestStatusType} from "./appSlice";
 import {TaskDomainType} from "../features/TodolistsList/tasks-reducer";
-import {logOutTC, meTC} from "../features/Login/auth-reducer";
+import {logOutTC, meTC} from "../features/Login/authSlice";
 
 
 export type TasksStateType = {

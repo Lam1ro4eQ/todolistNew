@@ -5,7 +5,7 @@ import {
     todolistsReducer
 } from './todolists-reducer';
 import {v1} from 'uuid';
-import {RequestStatusType} from "../../app/app-reducer";
+import {RequestStatusType} from "../../app/appSlice";
 
 
 let todolistId1: string;

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from "@mui/material";
 import {useFormik} from "formik";
-import {loginTC} from "./auth-reducer";
+import {loginTC} from "./authSlice";
 import {useDispatch} from "react-redux";
 import {useAppDispatch, useAppSelector} from "../../app/store";
 import {Navigate} from "react-router-dom"

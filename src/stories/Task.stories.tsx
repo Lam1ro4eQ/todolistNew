@@ -3,7 +3,7 @@ import {action} from '@storybook/addon-actions';
 import React, {useState} from "react";
 import {Task} from "../features/TodolistsList/Todolist/Task/Task";
 import {TaskPriorities, TaskStatuses} from "../api/todolist-api";
-import {RequestStatusType} from "../app/app-reducer";
+import {RequestStatusType} from "../app/appSlice";
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta: Meta<typeof Task> = {
