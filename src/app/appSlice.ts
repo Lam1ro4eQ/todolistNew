@@ -27,3 +27,4 @@ export const appSlice = createSlice({
 
 export const {setAppStatus,setAppError,setAppIsInitialized} = appSlice.actions
 export const appReducer = appSlice.reducer
+export type AppStateType = ReturnType<typeof appSlice.getInitialState>

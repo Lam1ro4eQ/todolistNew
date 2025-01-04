@@ -1,17 +1,17 @@
-import {appSlice, InitialStateType, setAppErrorAC} from "./appSlice";
+import {appReducer, AppStateType, RequestStatusType, setAppError} from "./appSlice";
 
-let startState: InitialStateType;
+let startState: AppStateType;
 
 beforeEach(() => {
     startState = {
         error: null,
-        status: 'idle',
+        status: 'idle' as RequestStatusType,
         isInitialized: false
     }
 })
 
 test('correct error should be set', () => {
-    const endState = appSlice(startState, setAppErrorAC('some error'))
+    const endState = appReducer(startState, setAppError({error:'some error'}))
 
     expect(endState.error).toBe('some error');
 });

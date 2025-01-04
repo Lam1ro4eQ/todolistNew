@@ -7,13 +7,13 @@ import {TasksStateType} from "../../app/AppWithRedux";
 import {AddItemForm} from '../../components/AddItemForm/AddItemForm';
 import {
     addTodolistTC,
-    changeTodolistFilterAC,
+    changeTodolistFilter,
     changeTodolistTitleTC,
     fetschTodolistsTC,
     FilterValuesType,
     removeTodolistTC,
     TodolistDomainType
-} from './todolists-reducer';
+} from './todolistsSlice';
 import {addTaskTC, removeTaskTC, updateTaskTC} from './tasks-reducer';
 import {Todolist} from "./Todolist/Todolist";
 import {Navigate} from "react-router-dom";
@@ -54,8 +54,7 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
     }, [dispatch])
 
     const changeFilter = useCallback((value: FilterValuesType, todolistId: string) => {
-        const action = changeTodolistFilterAC(todolistId, value);
-        dispatch(action);
+        dispatch(changeTodolistFilter({id:todolistId,filter:value}))
     }, [dispatch])
 
     const removeTodolist = useCallback((id: string) => {

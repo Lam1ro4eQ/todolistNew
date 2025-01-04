@@ -9,8 +9,8 @@ import {
     changeTodolistFilterAC,
     changeTodolistTitleAC, FilterValuesType,
     removeTodolistAC,
-    todolistsReducer
-} from '../features/TodolistsList/todolists-reducer';
+    todolistsSlice
+} from '../features/TodolistsList/todolistsSlice';
 import {addTaskAC, updateTaskAC, changeTaskTitleAC, removeTaskAC, tasksReducer} from '../features/TodolistsList/tasks-reducer';
 import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
@@ -25,7 +25,7 @@ function AppWithReducers() {
     let todolistId1 = v1();
     let todolistId2 = v1();
 
-    let [todolists, dispatchToTodolists] = useReducer(todolistsReducer, [
+    let [todolists, dispatchToTodolists] = useReducer(todolistsSlice, [
         {id: todolistId1, title: "What to learn", filter: "all",  addedDate: '', order: 0, entityStatus:'idle' },
         {id: todolistId2, title: "What to buy", filter: "all",  addedDate: '', order: 0, entityStatus:'idle' }
     ])
