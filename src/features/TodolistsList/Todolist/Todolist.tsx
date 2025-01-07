@@ -65,18 +65,18 @@ export const Todolist = React.memo(({demo = false,disabled = false, ...props}: P
         </h3>
         <AddItemForm addItem={addTask} disabled={props.todolist.entityStatus === 'loading'}/>
         <div>
-            {
-                tasksForTodolist.map(t => <Task
-                        disabled={props.todolist.entityStatus === 'loading'}
-                        task={t}
-                        removeTask={props.removeTask}
-                        changeTaskTitle={props.changeTaskTitle}
-                        changeTaskStatus={props.changeTaskStatus}
-                        todolistID={props.todolist.id}
-                        key={t.id}
-                    />
-                )
-            }
+            {/*{*/}
+            {/*    tasksForTodolist.map(t => <Task*/}
+            {/*            disabled={props.todolist.entityStatus === 'loading'}*/}
+            {/*            task={t}*/}
+            {/*            removeTask={props.removeTask}*/}
+            {/*            changeTaskTitle={props.changeTaskTitle}*/}
+            {/*            changeTaskStatus={props.changeTaskStatus}*/}
+            {/*            todolistID={props.todolist.id}*/}
+            {/*            key={t.id}*/}
+            {/*        />*/}
+            {/*    )*/}
+            {/*}*/}
         </div>
         <div style={{paddingTop: "10px"}}>
             <Button variant={props.todolist.filter === 'all' ? 'outlined' : 'text'}

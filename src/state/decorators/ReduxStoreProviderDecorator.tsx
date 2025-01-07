@@ -3,7 +3,7 @@ import {Provider} from "react-redux";
 import {AppRootStateType, store} from "../../app/store";
 import {applyMiddleware, combineReducers, createStore, legacy_createStore} from "redux";
 import {tasksReducer} from '../../features/TodolistsList/tasks-reducer';
-import {todolistsSlice} from "../../features/TodolistsList/todolistsSlice";
+import {todolistsReducer, todolistsSlice} from "../../features/TodolistsList/todolistsSlice";
 import {v1} from "uuid";
 import {TaskPriorities, TaskStatuses} from "../../api/todolist-api";
 import {appReducer, appSlice} from "../../app/appSlice";
@@ -12,7 +12,7 @@ import {authReducer} from "../../features/Login/authSlice";
 
 const rootReducer = combineReducers({
     tasks: tasksReducer,
-    todolists: todolistsSlice,
+    todolists: todolistsReducer,
     app: appReducer,
     auth: authReducer
 })

@@ -11,7 +11,8 @@ export const todolistsSlice = createSlice({
         return {
             setTodolists: create.reducer<{ todolists: TodolistType[] }>((state, action) => {
                 // return action.payload.todolists.map(tl => ({...tl, filter: 'all', entityStatus: 'idle'}))
-                action.payload.todolists.forEach((tl)=>{
+                console.log(state)
+                action.payload.todolists.forEach((tl) => {
                     state.push({...tl, filter: 'all', entityStatus: 'idle'})
                 })
             }),
@@ -31,32 +32,41 @@ export const todolistsSlice = createSlice({
                 }
                 state.unshift(newTodolist)
             }),
-            changeTodolistTitle: create.reducer<{id: string, title: string}>((state,action)=>{
+            changeTodolistTitle: create.reducer<{ id: string, title: string }>((state, action) => {
                 // return state.map(tl => tl.id === action.id ? {...tl, title: action.title} : tl)
                 const index = state.findIndex(todo => todo.id == action.payload.id)
                 if (index !== -1) {
                     state[index].title = action.payload.title
                 }
             }),
-            changeTodolistFilter: create.reducer<{id: string, filter: FilterValuesType}>((state,action)=> {
+            changeTodolistFilter: create.reducer<{ id: string, filter: FilterValuesType }>((state, action) => {
                 // return state.map(tl => tl.id === action.id ? {...tl, filter: action.filter} : tl)
                 const index = state.findIndex(todo => todo.id == action.payload.id)
                 if (index !== -1) {
                     state[index].filter = action.payload.filter
                 }
             }),
-            changeTodolistEntityStatus: create.reducer<{id: string, entityStatus: RequestStatusType}>((state,action) => {
+            changeTodolistEntityStatus: create.reducer<{ id: string, entityStatus: RequestStatusType }>((state, action) => {
                 const index = state.findIndex(todo => todo.id == action.payload.id)
                 if (index !== -1) {
                     state[index].entityStatus = action.payload.entityStatus
                 }
             }),
-            cleartodolist: create.reducer()
+            clearTodolist: create.reducer<undefined>((state, action) => {
+                return []
+            })
 
         }
     }
 })
-export const {setTodolists,removeTodolist,addTodolist,changeTodolistTitle,changeTodolistFilter,changeTodolistEntityStatus} = todolistsSlice.actions
+export const {
+    setTodolists,
+    removeTodolist,
+    addTodolist,
+    changeTodolistTitle,
+    changeTodolistFilter,
+    changeTodolistEntityStatus
+} = todolistsSlice.actions
 export const todolistsReducer = todolistsSlice.reducer
 export type TodolistsStateType = ReturnType<typeof todolistsSlice.getInitialState>
 
@@ -67,6 +77,7 @@ export const fetschTodolistsTC = () => {
         dispatch(setAppStatus({status: 'loading'}))
         todoListAPI.getTodoList()
             .then((res) => {
+                console.log(res.data)
                 dispatch(setTodolists({todolists: res.data}))
                 dispatch(setAppStatus({status: 'succeeded'}))
             })
@@ -76,10 +87,10 @@ export const fetschTodolistsTC = () => {
 export const removeTodolistTC = (todolistId: string) => {
     return (dispatch: any) => {
         dispatch(setAppStatus({status: 'loading'}))
-        dispatch(changeTodolistEntityStatus({id:todolistId, entityStatus:'loading'}))
+        dispatch(changeTodolistEntityStatus({id: todolistId, entityStatus: 'loading'}))
         todoListAPI.deleteTodoList(todolistId)
             .then((res) => {
-                dispatch(removeTodolist({todolistId:todolistId}))
+                dispatch(removeTodolist({todolistId: todolistId}))
                 dispatch(setAppStatus({status: 'succeeded'}))
             })
     }
@@ -90,7 +101,7 @@ export const addTodolistTC = (title: string) => {
         dispatch(setAppStatus({status: 'loading'}));
         todoListAPI.createTodoList(title)
             .then((res) => {
-                dispatch(addTodolist({todolist:res.data.data.item}))
+                dispatch(addTodolist({todolist: res.data.data.item}))
                 dispatch(setAppStatus({status: 'succeeded'}));
             })
     }
@@ -101,7 +112,7 @@ export const changeTodolistTitleTC = (todoID: string, title: string) => {
         dispatch(setAppStatus({status: 'loading'}));
         todoListAPI.updateTodoList(todoID, title)
             .then((res) => {
-                dispatch(changeTodolistTitle({id:todoID, title}))
+                dispatch(changeTodolistTitle({id: todoID, title}))
                 dispatch(setAppStatus({status: 'succeeded'}));
             })
     }
