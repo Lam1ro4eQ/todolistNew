@@ -42,6 +42,10 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
             }
 
         case "SET-TASKS":
+            // console.log(action.todolistId)
+            // console.log(action.tasks)
+            const newState = {...state, [action.todolistId]: action.tasks}
+            console.log('NEWsTATE: ', newState)
             return {...state, [action.todolistId]: action.tasks}
 
         case "CHANGE-TASK-ENTITY-STATUS":
@@ -75,12 +79,13 @@ export const changeTaskEntityStatusAC = (taskId: string, todolistId: string, ent
 //thunks
 export const fetschTasksTC = (todolistId: string) => (dispatch: Dispatch) => {
     dispatch(setAppStatus({status: 'loading'}));
+    console.log('fetschTasksTC')
     todoListAPI.getTasks(todolistId)
         .then(res => {
-            // console.log(res.data.items)
-            const newTask = res.data.items.map(t => ({...t, entityStatus: 'idle' as RequestStatusType}))
-            // console.log(newTask, todolistId)
-            dispatch(setTasksAC(newTask, todolistId))
+
+            const newTasks = res.data.items.map(t => ({...t, entityStatus: 'idle' as RequestStatusType}))
+            console.log('res: ', newTasks)
+            dispatch(setTasksAC(newTasks, todolistId))
             // dispatch(setTasksAC(newTask, todolistId))
             dispatch(setAppStatus({status: 'succeeded'}));
         })
@@ -168,6 +173,7 @@ type UpdateTaskDomainModelType = {
 }
 
 type ActionsType =
+    | any
     | ReturnType<typeof removeTaskAC>
     | ReturnType<typeof addTaskAC>
     | ReturnType<typeof updateTaskAC>
@@ -178,6 +184,6 @@ type ActionsType =
 type ThunkDispatch = Dispatch<ActionsType>
 
 export type TaskDomainType = TaskType & {
-    entityStatus?: RequestStatusType
+    entityStatus: RequestStatusType
 }
 

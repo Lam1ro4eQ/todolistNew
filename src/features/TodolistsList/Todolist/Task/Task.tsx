@@ -23,7 +23,7 @@ export const Task = React.memo((props: TaskPropsType) => {
     const onTitleChangeHandler = useCallback((newValue: string) => {
         props.changeTaskTitle(props.task.id, newValue, props.todolistID);
     }, [props.changeTaskTitle, props.task.id, props.todolistID])
-
+    console.log(`tasksk for ${props.todolistID}`, props.task)
 
     return <div key={props.task.id} className={props.task.status === TaskStatuses.Completed ? "is-done" : ""}>
         <Checkbox
@@ -36,6 +36,7 @@ export const Task = React.memo((props: TaskPropsType) => {
         <EditableSpan value={props.task.title} onChange={onTitleChangeHandler} disabled={props.task.entityStatus === 'loading' || props.disabled}/>
         <IconButton onClick={onClickHandler} disabled={props.task.entityStatus === 'loading' || props.disabled}>
             <Delete/>
+
         </IconButton>
     </div>
 })

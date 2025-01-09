@@ -11,7 +11,6 @@ export const todolistsSlice = createSlice({
         return {
             setTodolists: create.reducer<{ todolists: TodolistType[] }>((state, action) => {
                 // return action.payload.todolists.map(tl => ({...tl, filter: 'all', entityStatus: 'idle'}))
-                console.log(state)
                 action.payload.todolists.forEach((tl) => {
                     state.push({...tl, filter: 'all', entityStatus: 'idle'})
                 })
@@ -65,7 +64,8 @@ export const {
     addTodolist,
     changeTodolistTitle,
     changeTodolistFilter,
-    changeTodolistEntityStatus
+    changeTodolistEntityStatus,
+    clearTodolist
 } = todolistsSlice.actions
 export const todolistsReducer = todolistsSlice.reducer
 export type TodolistsStateType = ReturnType<typeof todolistsSlice.getInitialState>
