@@ -1,5 +1,5 @@
 import {addTodolist, TodolistDomainType, todolistsReducer, todolistsSlice} from './todolistsSlice';
-import {tasksReducer} from './tasks-reducer';
+import {tasksSlice} from './tasksSlice';
 import {TodolistType} from "../../api/todolist-api";
 import {TasksStateType} from "../../app/AppWithRedux";
 
@@ -9,7 +9,7 @@ test('ids should be equals', () => {
 
     const action = addTodolist({todolist:{id: '1', title: "What to learn",addedDate: '', order: 0}});
 
-    const endTasksState = tasksReducer(startTasksState, action)
+    const endTasksState = tasksSlice(startTasksState, action)
     const endTodolistsState = todolistsReducer(startTodolistsState, action)
 
     const keys = Object.keys(endTasksState);

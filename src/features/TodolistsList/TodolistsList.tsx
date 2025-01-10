@@ -14,7 +14,7 @@ import {
     removeTodolistTC,
     TodolistDomainType
 } from './todolistsSlice';
-import {addTaskTC, removeTaskTC, updateTaskTC} from './tasks-reducer';
+import {addTaskTC, removeTaskTC, updateTaskTC} from './tasksSlice';
 import {Todolist} from "./Todolist/Todolist";
 import {Navigate} from "react-router-dom";
 

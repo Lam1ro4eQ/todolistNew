@@ -20,7 +20,7 @@ import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch, useAppSelector} from "./store";
 import {RequestStatusType} from "./appSlice";
-import {TaskDomainType} from "../features/TodolistsList/tasks-reducer";
+import {TaskDomainType} from "../features/TodolistsList/tasksSlice";
 import {logOutTC, meTC} from "../features/Login/authSlice";
 
 

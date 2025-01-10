@@ -17,11 +17,29 @@ import {handleServerAppError, handleServerNetworkError} from "../../utils/error-
 import {Simulate} from "react-dom/test-utils";
 import error = Simulate.error;
 import {TasksStateType} from "../../app/AppWithRedux";
+import {createSlice} from "@reduxjs/toolkit";
+import {addTodolist} from "./todolistsSlice";
 
 
 const initialState: TasksStateType = {}
 
-export const tasksReducer = (state: TasksStateType = initialState, action: ActionsType): TasksStateType => {
+export const tasksSlice = createSlice({
+    name: 'tasks',
+    initialState: {} as TasksStateType,
+    reducers : create=> ({
+        addTodolist: create.reducer<{todolist: todolist}>((state,action)=> {
+
+        })
+    }),
+    extraReducers: (builder) => {
+        builder.addCase(addTodolist, (state,action)=> {
+            state[action.payload.todolist.id] = []
+        })
+    }
+})
+
+
+export const _tasksSlice = (state: TasksStateType = initialState, action: ActionsType): TasksStateType => {
     switch (action.type) {
         case 'REMOVE-TASK':
             return {...state, [action.todolistId]: state[action.todolistId].filter(t => t.id != action.taskId)}
@@ -42,8 +60,6 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
             }
 
         case "SET-TASKS":
-            // console.log(action.todolistId)
-            // console.log(action.tasks)
             const newState = {...state, [action.todolistId]: action.tasks}
             console.log('NEWsTATE: ', newState)
             return {...state, [action.todolistId]: action.tasks}

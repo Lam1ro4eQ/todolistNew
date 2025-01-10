@@ -2,7 +2,7 @@ import React from 'react'
 import {Provider} from "react-redux";
 import {AppRootStateType, store} from "../../app/store";
 import {applyMiddleware, combineReducers, createStore, legacy_createStore} from "redux";
-import {tasksReducer} from '../../features/TodolistsList/tasks-reducer';
+import {tasksSlice} from '../../features/TodolistsList/tasksSlice';
 import {todolistsReducer, todolistsSlice} from "../../features/TodolistsList/todolistsSlice";
 import {v1} from "uuid";
 import {TaskPriorities, TaskStatuses} from "../../api/todolist-api";
@@ -11,7 +11,7 @@ import {thunk} from "redux-thunk";
 import {authReducer} from "../../features/Login/authSlice";
 
 const rootReducer = combineReducers({
-    tasks: tasksReducer,
+    tasks: tasksSlice,
     todolists: todolistsReducer,
     app: appReducer,
     auth: authReducer

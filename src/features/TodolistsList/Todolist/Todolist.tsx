@@ -7,7 +7,7 @@ import {Task} from "./Task/Task";
 import {useDispatch, useSelector} from "react-redux";
 import {TaskStatuses, TaskType} from "../../../api/todolist-api";
 import {FilterValuesType, TodolistDomainType} from "../todolistsSlice";
-import {fetschTasksTC, TaskDomainType} from "../tasks-reducer";
+import {fetschTasksTC, TaskDomainType} from "../tasksSlice";
 import {useAppSelector} from "../../../app/store";
 
 

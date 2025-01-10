@@ -7,7 +7,7 @@ import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography}
 import {Menu} from "@mui/icons-material";
 import {FilterValuesType, TodolistDomainType} from "../features/TodolistsList/todolistsSlice";
 import {TaskPriorities, TaskStatuses, TaskType} from "../api/todolist-api";
-import {TaskDomainType} from "../features/TodolistsList/tasks-reducer";
+import {TaskDomainType} from "../features/TodolistsList/tasksSlice";
 import {RequestStatusType} from "../app/appSlice";
 
 
