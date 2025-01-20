@@ -1,13 +1,15 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
+export type ThemeMode = 'dark' | 'light'
 
 export const appSlice = createSlice({
     name: 'app',
     initialState: {
         isInitialized: false,
         status: 'idle' as RequestStatusType,
-        error: null as string | null
+        error: null as string | null,
+        themeMode: 'light' as ThemeMode
     },
     reducers: create => {
         return {
@@ -19,12 +21,21 @@ export const appSlice = createSlice({
             }),
             setAppIsInitialized: create.reducer<{ isInitialized: boolean }>((state, action) => {
                 state.isInitialized = action.payload.isInitialized
+            }),
+            changeTheme: create.reducer<{themeMode: ThemeMode}>((state,action)=> {
+                state.themeMode = action.payload.themeMode
             })
         }
+    },
+    selectors: {
+        selectThemeMode:(state) => state.themeMode,
+        selectAppStatus:(state) => state.status,
+        selectAppError:(state) => state.error
     }
 })
 
 
-export const {setAppStatus,setAppError,setAppIsInitialized} = appSlice.actions
+export const {setAppStatus,setAppError,setAppIsInitialized,changeTheme} = appSlice.actions
 export const appReducer = appSlice.reducer
+export const {selectAppStatus,selectAppError,selectThemeMode} = appSlice.selectors
 export type AppStateType = ReturnType<typeof appSlice.getInitialState>

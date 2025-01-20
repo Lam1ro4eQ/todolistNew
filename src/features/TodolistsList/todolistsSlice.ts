@@ -54,8 +54,10 @@ export const todolistsSlice = createSlice({
             clearTodolist: create.reducer<undefined>((state, action) => {
                 return []
             })
-
         }
+    },
+    selectors: {
+        selectTodolist: state => state
     }
 })
 export const {
@@ -69,6 +71,7 @@ export const {
 } = todolistsSlice.actions
 export const todolistsReducer = todolistsSlice.reducer
 export type TodolistsStateType = ReturnType<typeof todolistsSlice.getInitialState>
+export const { selectTodolist } = todolistsSlice.selectors
 
 
 //thunks

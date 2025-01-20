@@ -1,4 +1,4 @@
-import {appReducer, AppStateType, RequestStatusType, setAppError} from "./appSlice";
+import {appReducer, AppStateType, RequestStatusType, setAppError, ThemeMode} from "./appSlice";
 
 let startState: AppStateType;
 
@@ -6,7 +6,8 @@ beforeEach(() => {
     startState = {
         error: null,
         status: 'idle' as RequestStatusType,
-        isInitialized: false
+        isInitialized: false,
+        themeMode: 'light' as ThemeMode
     }
 })
 

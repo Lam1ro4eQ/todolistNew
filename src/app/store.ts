@@ -8,26 +8,25 @@ import {TypedUseSelectorHook, useSelector} from "react-redux";
 import {useDispatch} from "react-redux";
 import {configureStore} from "@reduxjs/toolkit";
 
-// объединяя reducer-ы с помощью combineReducers,
-// мы задаём структуру нашего единственного объекта-состояния
-const rootReducer = combineReducers({
-    tasks: tasksReducer,
-    todolists: todolistsReducer,
-    app: appReducer,
-    auth: authReducer
-})
+
 // Добавляем поддержку Redux DevTools
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 // непосредственно создаём store
 // export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
 export const store = configureStore({
-    reducer: rootReducer,
+
+    reducer: {
+        tasks: tasksReducer,
+        todolists: todolistsReducer,
+        app: appReducer,
+        auth: authReducer
+    },
     devTools: process.env.NODE_ENV !== 'production' // Включение DevTools только для разработки
     }) // Добавление middleware});
 // определить автоматически тип всего объекта состояния
-export type AppRootStateType = ReturnType<typeof rootReducer>
+export type AppRootStateType = ReturnType<typeof store.getState>
 // создаем тип диспатча который принимает как АС так и ТС
-export type AppThunkDispatch = ThunkDispatch<AppRootStateType,any,AnyAction>
+export type AppThunkDispatch = ThunkDispatch<AppRootStateType,unknown,AnyAction>
 // Хуки для использования в компонентах
 export const useAppDispatch = () => useDispatch<AppThunkDispatch>();
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector

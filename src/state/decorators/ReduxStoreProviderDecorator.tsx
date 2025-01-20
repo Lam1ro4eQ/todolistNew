@@ -6,7 +6,7 @@ import {tasksReducer, tasksSlice} from '../../features/TodolistsList/tasksSlice'
 import {todolistsReducer, todolistsSlice} from "../../features/TodolistsList/todolistsSlice";
 import {v1} from "uuid";
 import {TaskPriorities, TaskStatuses} from "../../api/todolist-api";
-import {appReducer, appSlice} from "../../app/appSlice";
+import {appReducer, appSlice, ThemeMode} from "../../app/appSlice";
 import {thunk} from "redux-thunk";
 import {authReducer} from "../../features/Login/authSlice";
 
@@ -88,7 +88,8 @@ const initialGlobalState: AppRootStateType = {
     app: {
         error: null,
         status: 'idle',
-        isInitialized: false
+        isInitialized: false,
+        themeMode: 'light' as ThemeMode
     },
     auth: {
         isLoggedIn: false // или true, если пользователь авторизован

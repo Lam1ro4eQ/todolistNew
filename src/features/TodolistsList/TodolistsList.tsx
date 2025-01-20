@@ -11,7 +11,7 @@ import {
     changeTodolistTitleTC,
     fetschTodolistsTC,
     FilterValuesType,
-    removeTodolistTC,
+    removeTodolistTC, selectTodolist,
     TodolistDomainType
 } from './todolistsSlice';
 import {addTaskTC, removeTaskTC, updateTaskTC} from './tasksSlice';
@@ -23,9 +23,7 @@ type PropsType = {
 }
 export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
 
-    const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
-    // const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
-
+    const todolists = useAppSelector(selectTodolist)
     const dispatch = useDispatch<any>();
     const isLoggerIn = useAppSelector((state) => state.auth.isLoggedIn)
 
@@ -83,8 +81,6 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
         <Grid container spacing={3}>
             {
                 todolists.map(tl => {
-                    // let allTodolistTasks = tasks[tl.id];
-                    // let tasksForTodolist = allTodolistTasks;
                     return <Grid item key={tl.id}>
                         <Paper style={{padding: "10px"}}>
                             <Todolist

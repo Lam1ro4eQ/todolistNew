@@ -13,7 +13,6 @@ import {useAppSelector} from "../../../app/store";
 
 type PropsType = {
     todolist: TodolistDomainType
-    // tasks: Array<TaskDomainType>
     removeTask: (taskId: string, todolistId: string) => void
     changeFilter: (value: FilterValuesType, todolistId: string) => void
     addTask: (title: string, todolistId: string) => void
@@ -29,19 +28,11 @@ type PropsType = {
 export const Todolist = React.memo(({demo = false,disabled = false, ...props}: PropsType) => {
 
     const dispatch: any = useDispatch()
-
-
-
     let tasks = useAppSelector((state)=>state.tasks)
 
     useEffect(() => {
         dispatch(fetschTasksTC(props.todolist.id))
     }, [])
-
-
-
-    // let todoTasks = tasks[props.todolist.id]
-    // console.log('todoTasks: ', todoTasks)
 
     const addTask = useCallback((title: string) => {
         props.addTask(title, props.todolist.id);
