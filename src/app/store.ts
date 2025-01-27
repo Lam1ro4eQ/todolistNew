@@ -1,12 +1,11 @@
 import {tasksReducer, tasksSlice} from '../features/TodolistsList/tasksSlice';
 import {todolistsReducer, todolistsSlice} from '../features/TodolistsList/todolistsSlice';
-import {AnyAction, applyMiddleware, combineReducers, compose, createStore} from 'redux';
-import {thunk, ThunkDispatch} from "redux-thunk";
 import {appReducer, appSlice} from "./appSlice";
 import {authReducer, authSlice} from "../features/Login/authSlice";
 import {TypedUseSelectorHook, useSelector} from "react-redux";
-import {useDispatch} from "react-redux";
-import {configureStore} from "@reduxjs/toolkit";
+import {compose, configureStore} from "@reduxjs/toolkit";
+import {todolistApi} from "../api/todolist-api";
+import {setupListeners} from "@reduxjs/toolkit/query";
 
 
 // Добавляем поддержку Redux DevTools
@@ -19,16 +18,27 @@ export const store = configureStore({
         [tasksSlice.name]: tasksReducer,
         [todolistsSlice.name]: todolistsReducer,
         [appSlice.name]: appReducer,
-        [authSlice.name]: authReducer
+        [authSlice.name]: authReducer,
+        [todolistApi.reducerPath]: todolistApi.reducer,
     },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(todolistApi.middleware),
+
+
     devTools: process.env.NODE_ENV !== 'production' // Включение DevTools только для разработки
-}) // Добавление middleware});
+})
+
+setupListeners(store.dispatch)
+
+
 // определить автоматически тип всего объекта состояния
 export type AppRootStateType = ReturnType<typeof store.getState>
+
+export type AppDispatch = typeof store.dispatch
 // создаем тип диспатча который принимает как АС так и ТС
-export type AppThunkDispatch = ThunkDispatch<AppRootStateType, unknown, AnyAction>
+// export type AppThunkDispatch = ThunkDispatch<AppRootStateType, unknown, AnyAction>
 // Хуки для использования в компонентах
-export const useAppDispatch = () => useDispatch<AppThunkDispatch>();
+// export const useAppDispatch = () => useDispatch<AppThunkDispatch>();
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
 
 // а это, чтобы можно было в консоли браузера обращаться к store в любой момент// Для отладки

@@ -1,5 +1,6 @@
 import axios, {AxiosResponse} from "axios";
 import {LoginDataType} from "../features/Login/Login";
+import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
 
 
 const instance = axios.create({
@@ -15,10 +16,10 @@ const instance = axios.create({
 
 export const authAPI = {
     me() {
-      return instance.get<ResponseType<UserDataType>>(`/auth/me`)
+        return instance.get<ResponseType<UserDataType>>(`/auth/me`)
     },
     login(data: LoginDataType) {
-        return instance.post<ResponseType<{ userId: number }>,AxiosResponse<ResponseType<{ userId: number }>>, LoginDataType>(`/auth/login`, data)
+        return instance.post<ResponseType<{ userId: number }>, AxiosResponse<ResponseType<{ userId: number }>>, LoginDataType>(`/auth/login`, data)
     },
     logout() {
         return instance.delete<ResponseType>(`/auth/login`)
@@ -52,6 +53,28 @@ export const todoListAPI = {
     }
 }
 
+export const todolistApi = createApi({
+    reducerPath: 'todolistApi',
+    baseQuery: fetchBaseQuery({
+        baseUrl: `https://social-network.samuraijs.com/api/1.1/`,
+    }),
+    endpoints: (builder) => {
+        return {
+            getTodoList: builder.query<TodolistType[], undefined>({
+                query: () => {
+                    return {
+                        method: "GET",
+                        url: "todo-lists"
+                    }
+                }
+            })
+        }
+    }
+})
+
+export const {useGetTodoListQuery} = todolistApi
+
+
 //types
 export type UpdateTaskModelType = {
     title: string
@@ -61,12 +84,14 @@ export type UpdateTaskModelType = {
     startDate: string
     deadline: string
 }
+
 export enum TaskStatuses {
     New = 0,
     InProgress = 1,
     Completed = 2,
     Draft = 3
 }
+
 export enum TaskPriorities {
     Low = 0,
     Middle = 1,
@@ -74,6 +99,7 @@ export enum TaskPriorities {
     Urgently = 3,
     Later = 4
 }
+
 export type TaskType = {
     description: string,
     title: string,
