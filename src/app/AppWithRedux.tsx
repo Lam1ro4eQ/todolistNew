@@ -12,18 +12,14 @@ import {
 } from "@mui/material";
 import {Menu} from "@mui/icons-material";
 import {Login} from "../features/Login/Login";
-import {TaskType} from "../api/todolist-api";
 import {TodolistsList} from "../features/TodolistsList/TodolistsList";
 import {Routes, Route, Navigate, BrowserRouter} from "react-router-dom"
-import {useFormik} from "formik";
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
-import {useSelector} from "react-redux";
-import {AppRootStateType, useAppDispatch, useAppSelector} from "./store";
-import {changeTheme, RequestStatusType, selectThemeMode, ThemeMode} from "./appSlice";
+import {changeTheme, selectAppIsInitialized, selectAppStatus, selectAppThemeMode} from "./appSlice";
 import {TaskDomainType} from "../features/TodolistsList/tasksSlice";
-import {logOutTC, meTC} from "../features/Login/authSlice";
-import {getTheme} from "../components/theme/theme";
-
+import {logOutTC, meTC, selectAuthLogged} from "../features/Login/authSlice";
+import {useAppDispatch, useAppSelector} from "../hooks";
+import {getTheme} from "../components/theme";
 
 export type TasksStateType = {
     [key: string]: Array<TaskDomainType>
@@ -34,10 +30,10 @@ type PropsType = {
 
 function AppWithRedux({demo = true}: PropsType) {
     const dispatch = useAppDispatch()
-    const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
-    const isInitialized = useAppSelector((state) => state.app.isInitialized)
-    const isLoggerIn = useAppSelector((state) => state.auth.isLoggedIn)
-    const themeMode = useAppSelector(selectThemeMode)
+    const status = useAppSelector(selectAppStatus)
+    const isInitialized = useAppSelector(selectAppIsInitialized)
+    const isLoggerIn = useAppSelector(selectAuthLogged)
+    const themeMode = useAppSelector(selectAppThemeMode)
     const theme = getTheme(themeMode)
 
 

@@ -22,7 +22,10 @@ export const authSlice = createSlice({
                 state.isLoggedIn = action.payload.isLoggedIn
             })
         }
-}
+},
+    selectors: {
+        selectAuthLogged:(state) => state.isLoggedIn
+    }
     // reducers: {
     //     setIsLoggedIn: (state, action: PayloadAction<{ isLoggedIn: boolean }>) => {
     //         state.isLoggedIn = action.payload.isLoggedIn
@@ -32,6 +35,7 @@ export const authSlice = createSlice({
 
 export const authReducer = authSlice.reducer
 export const {setIsLoggedIn} = authSlice.actions
+export const {selectAuthLogged} = authSlice.selectors
 
 
 export const meTC = () => async (dispatch: Dispatch) => {

@@ -1,10 +1,9 @@
 import React from 'react';
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from "@mui/material";
 import {useFormik} from "formik";
-import {loginTC} from "./authSlice";
-import {useDispatch} from "react-redux";
-import {useAppDispatch, useAppSelector} from "../../app/store";
+import {loginTC, selectAuthLogged} from "./authSlice";
 import {Navigate} from "react-router-dom"
+import {useAppDispatch, useAppSelector} from "../../hooks";
 
 export type LoginDataType = {
     email: string
@@ -15,7 +14,7 @@ export type LoginDataType = {
 export const Login = () => {
 
     const dispatch = useAppDispatch()
-    const isLoggerIn = useAppSelector((state) => state.auth.isLoggedIn)
+    const isLoggerIn = useAppSelector(selectAuthLogged)
 
     type FormikErrorType = {
         email?: string

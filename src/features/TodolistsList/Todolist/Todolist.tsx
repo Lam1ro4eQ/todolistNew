@@ -4,11 +4,10 @@ import {EditableSpan} from '../../../components/EditableSpan/EditableSpan';
 import {Button, IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 import {Task} from "./Task/Task";
-import {useDispatch, useSelector} from "react-redux";
-import {TaskStatuses, TaskType} from "../../../api/todolist-api";
+import {TaskStatuses} from "../../../api/todolist-api";
 import {FilterValuesType, TodolistDomainType} from "../todolistsSlice";
-import {fetschTasksTC, TaskDomainType} from "../tasksSlice";
-import {useAppSelector} from "../../../app/store";
+import {fetschTasksTC, selectTasks} from "../tasksSlice";
+import {useAppDispatch, useAppSelector} from "../../../hooks";
 
 
 type PropsType = {
@@ -27,8 +26,8 @@ type PropsType = {
 
 export const Todolist = React.memo(({demo = false,disabled = false, ...props}: PropsType) => {
 
-    const dispatch: any = useDispatch()
-    let tasks = useAppSelector((state)=>state.tasks)
+    const dispatch = useAppDispatch()
+    let tasks = useAppSelector(selectTasks)
 
     useEffect(() => {
         dispatch(fetschTasksTC(props.todolist.id))

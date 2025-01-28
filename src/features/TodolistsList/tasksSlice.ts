@@ -4,24 +4,18 @@ import {
     TaskStatuses,
     TaskType,
     todoListAPI,
-    TodolistType,
     UpdateTaskModelType
 } from "../../api/todolist-api";
 import {AppRootStateType} from "../../app/store";
 import {
     RequestStatusType,
-    setAppError,
     setAppStatus,
 } from "../../app/appSlice";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
-import {Simulate} from "react-dom/test-utils";
-import error = Simulate.error;
 import {TasksStateType} from "../../app/AppWithRedux";
 import {createSlice} from "@reduxjs/toolkit";
 import {addTodolist, removeTodolist, TodolistDomainType, todolistsSlice} from "./todolistsSlice";
 
-
-const initialState: TasksStateType = {}
 
 export const tasksSlice = createSlice({
     name: 'tasks',
@@ -69,6 +63,9 @@ export const tasksSlice = createSlice({
             .addCase(removeTodolist,(state,action) => {
                 delete state[action.payload.todolistId]
             })
+    },
+    selectors: {
+        selectTasks:(state) => state
     }
 })
 
@@ -81,7 +78,9 @@ export const {
     changeTaskEntityStatus,
 } = tasksSlice.actions
 export const tasksReducer = tasksSlice.reducer
-export type tasksStateType = ReturnType<typeof tasksSlice.getInitialState>
+export const { selectTasks } = tasksSlice.selectors
+
+
 
 
 

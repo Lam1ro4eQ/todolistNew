@@ -1,9 +1,6 @@
 import React, {useCallback, useEffect} from "react";
 import {Grid, Paper} from "@mui/material";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType, useAppSelector} from "../../app/store";
 import {TaskStatuses} from "../../api/todolist-api";
-import {TasksStateType} from "../../app/AppWithRedux";
 import {AddItemForm} from '../../components/AddItemForm/AddItemForm';
 import {
     addTodolistTC,
@@ -12,20 +9,21 @@ import {
     fetschTodolistsTC,
     FilterValuesType,
     removeTodolistTC, selectTodolist,
-    TodolistDomainType
 } from './todolistsSlice';
 import {addTaskTC, removeTaskTC, updateTaskTC} from './tasksSlice';
 import {Todolist} from "./Todolist/Todolist";
 import {Navigate} from "react-router-dom";
+import {selectAuthLogged} from "../Login/authSlice";
+import {useAppDispatch, useAppSelector} from "../../hooks";
 
 type PropsType = {
     demo?: boolean
 }
 export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
 
+    const dispatch = useAppDispatch()
     const todolists = useAppSelector(selectTodolist)
-    const dispatch = useDispatch<any>();
-    const isLoggerIn = useAppSelector((state) => state.auth.isLoggedIn)
+    const isLoggerIn = useAppSelector(selectAuthLogged)
 
     useEffect(() => {
         if (!isLoggerIn) return
