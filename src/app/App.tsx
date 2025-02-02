@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import {useEffect} from 'react';
 import './App.css';
 import {
     AppBar,
@@ -28,7 +28,7 @@ type PropsType = {
     demo?: boolean
 }
 
-function AppWithRedux({demo = true}: PropsType) {
+function App({demo = true}: PropsType) {
     const dispatch = useAppDispatch()
     const status = useAppSelector(selectAppStatus)
     const isInitialized = useAppSelector(selectAppIsInitialized)
@@ -87,4 +87,4 @@ function AppWithRedux({demo = true}: PropsType) {
     );
 }
 
-export default AppWithRedux;
+export default App;

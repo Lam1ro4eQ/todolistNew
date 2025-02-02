@@ -12,9 +12,9 @@ import {
     setAppStatus,
 } from "../../app/appSlice";
 import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
-import {TasksStateType} from "../../app/AppWithRedux";
 import {createSlice} from "@reduxjs/toolkit";
 import {addTodolist, removeTodolist, TodolistDomainType, todolistsSlice} from "./todolistsSlice";
+import {TasksStateType} from "../../app/App";
 
 
 export const tasksSlice = createSlice({
@@ -87,12 +87,9 @@ export const { selectTasks } = tasksSlice.selectors
 //thunks
 export const fetschTasksTC = (todolistId: string) => (dispatch: Dispatch) => {
     dispatch(setAppStatus({status: 'loading'}));
-    console.log('fetschTasksTC')
     todoListAPI.getTasks(todolistId)
         .then(res => {
-
             const newTasks = res.data.items.map(t => ({...t, entityStatus: 'idle' as RequestStatusType}))
-            console.log('res: ', newTasks)
             dispatch(setTasks({tasks:newTasks, todolistId}))
             dispatch(setAppStatus({status: 'succeeded'}));
         })
