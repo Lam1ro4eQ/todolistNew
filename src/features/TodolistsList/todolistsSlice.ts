@@ -1,6 +1,5 @@
 import {todoListAPI, TodolistType} from "../../api/todolist-api";
-import {Dispatch} from "redux";
-import {appSlice, RequestStatusType, setAppStatus} from "../../app/appSlice";
+import {RequestStatusType, setAppStatus} from "../../app/appSlice";
 import {createSlice} from "@reduxjs/toolkit";
 
 
