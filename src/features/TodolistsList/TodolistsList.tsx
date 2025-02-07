@@ -95,7 +95,6 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
                             />
                         </Paper>
                     </Grid>
-
                 })
             }
         </Grid>

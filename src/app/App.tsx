@@ -1,15 +1,4 @@
-import {useEffect} from 'react';
 import './App.css';
-import {
-    AppBar,
-    Button,
-    CircularProgress,
-    Container,
-    IconButton,
-    LinearProgress, Switch, ThemeProvider,
-    Toolbar,
-    Typography
-} from "@mui/material";
 import {Menu} from "@mui/icons-material";
 import {Login} from "../features/Login/Login";
 import {TodolistsList} from "../features/TodolistsList/TodolistsList";
@@ -20,6 +9,21 @@ import {TaskDomainType} from "../features/TodolistsList/tasksSlice";
 import {logOutTC, meTC, selectAuthLogged} from "../features/Login/authSlice";
 import {useAppDispatch, useAppSelector} from "../hooks";
 import {getTheme} from "../components/theme";
+import Toolbar from "@mui/material/Toolbar"
+import React, {useEffect} from "react";
+import {FilterTasksButton} from "../components/FilterTasksButton/FilterTasksButton";
+import {
+    AppBar,
+    Box,
+    CircularProgress,
+    Container,
+    IconButton,
+    LinearProgress,
+    Switch,
+    ThemeProvider
+} from "@mui/material";
+import {filterButtonsContainerSx} from "../components/FilterTasksButton/FilterTasksButtons.styles";
+import {MenuButton} from "../components/MenuButton/MenuButton";
 
 export type TasksStateType = {
     [key: string]: Array<TaskDomainType>
@@ -32,14 +36,19 @@ function App({demo = true}: PropsType) {
     const dispatch = useAppDispatch()
     const status = useAppSelector(selectAppStatus)
     const isInitialized = useAppSelector(selectAppIsInitialized)
-    const isLoggerIn = useAppSelector(selectAuthLogged)
     const themeMode = useAppSelector(selectAppThemeMode)
     const theme = getTheme(themeMode)
+    const themeMode = useAppSelector(selectAppThemeMode)
+    const isLoggerIn = useAppSelector(selectAuthLogged)
 
+    const changeModeHandler = () => {
+        dispatch(changeTheme({ themeMode: themeMode === 'light' ? 'dark' : 'light' }));
+    }
 
     const logOut = () => {
         dispatch(logOutTC())
     }
+
 
     useEffect(() => {
         dispatch(meTC())
@@ -50,29 +59,26 @@ function App({demo = true}: PropsType) {
             <CircularProgress/>
         </div>
     }
-    const changeModeHandler = () => {
-        dispatch(changeTheme({ themeMode: themeMode === 'light' ? 'dark' : 'light' }));
-    }
+
 
     return (
         <ThemeProvider theme={theme}>
             <div className="App">
                 <ErrorSnackbar/>
                 <AppBar position="static">
-                    <Toolbar>
+                    <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
                         <IconButton edge="start" color="inherit" aria-label="menu">
                             <Menu/>
                         </IconButton>
-                        <Typography variant="h6">
-                            News
-                        </Typography>
-                        {isLoggerIn && <Button color="inherit" onClick={logOut}>Log out</Button>}
-                        <Switch color={'default'} onChange={changeModeHandler}/>
+                        <Box sx={filterButtonsContainerSx}>
+                            <MenuButton color="inherit" >News</MenuButton>
+                            {isLoggerIn && <MenuButton background="green" color="inherit" onClick={logOut}>Log out</MenuButton>}
+                            <Switch color={'default'} onChange={changeModeHandler}/>
+                        </Box>
                     </Toolbar>
                     {status === 'loading' && <LinearProgress/>}
                 </AppBar>
                 <Container fixed>
-
                     <BrowserRouter>
                         <Routes>
                             <Route path={'/'} element={<TodolistsList demo={demo}/>}/>
