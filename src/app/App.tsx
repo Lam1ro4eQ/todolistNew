@@ -2,7 +2,7 @@ import './App.css';
 import {Menu} from "@mui/icons-material";
 import {Login} from "../features/Login/Login";
 import {TodolistsList} from "../features/TodolistsList/TodolistsList";
-import {Routes, Route, Navigate, BrowserRouter} from "react-router-dom"
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom"
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 import {changeTheme, selectAppIsInitialized, selectAppStatus, selectAppThemeMode} from "./appSlice";
 import {TaskDomainType} from "../features/TodolistsList/tasksSlice";
@@ -11,7 +11,6 @@ import {useAppDispatch, useAppSelector} from "../hooks";
 import {getTheme} from "../components/theme";
 import Toolbar from "@mui/material/Toolbar"
 import React, {useEffect} from "react";
-import {FilterTasksButton} from "../components/FilterTasksButton/FilterTasksButton";
 import {
     AppBar,
     Box,
@@ -38,7 +37,6 @@ function App({demo = true}: PropsType) {
     const isInitialized = useAppSelector(selectAppIsInitialized)
     const themeMode = useAppSelector(selectAppThemeMode)
     const theme = getTheme(themeMode)
-    const themeMode = useAppSelector(selectAppThemeMode)
     const isLoggerIn = useAppSelector(selectAuthLogged)
 
     const changeModeHandler = () => {
