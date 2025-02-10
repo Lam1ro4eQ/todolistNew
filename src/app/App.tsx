@@ -15,7 +15,7 @@ import {
     AppBar,
     Box,
     CircularProgress,
-    Container,
+    Container, CssBaseline,
     IconButton,
     LinearProgress,
     Switch,
@@ -61,6 +61,7 @@ function App({demo = true}: PropsType) {
 
     return (
         <ThemeProvider theme={theme}>
+            <CssBaseline />
             <div className="App">
                 <ErrorSnackbar/>
                 <AppBar position="static">
