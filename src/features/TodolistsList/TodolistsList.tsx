@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect} from "react";
 import {Grid, Paper} from "@mui/material";
-import {TaskStatuses} from "../../api/todolist-api";
+import {TaskStatuses, useGetTodoListQuery} from "../../api/todolist-api";
 import {AddItemForm} from '../../components/AddItemForm/AddItemForm';
 import {
     addTodolistTC,
@@ -22,13 +22,13 @@ type PropsType = {
 export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
 
     const dispatch = useAppDispatch()
-    const todolists = useAppSelector(selectTodolist)
+    // const todolists = useAppSelector(selectTodolist)
     const isLoggerIn = useAppSelector(selectAuthLogged)
-
-    useEffect(() => {
-        if (!isLoggerIn) return
-        dispatch(fetschTodolistsTC())
-    }, [])
+    const {} = useGetTodoListQuery()
+    // useEffect(() => {
+    //     if (!isLoggerIn) return
+    //     dispatch(fetschTodolistsTC())
+    // }, [])
 
     const removeTask = useCallback((id: string, todolistId: string) => {
         const thunk = removeTaskTC(id, todolistId)
@@ -76,28 +76,28 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
         <Grid container style={{padding: "20px"}}>
             <AddItemForm addItem={addTodolist}/>
         </Grid>
-        <Grid container spacing={3}>
-            {
-                todolists.map(tl => {
-                    return <Grid item key={tl.id}>
-                        <Paper style={{padding: "10px"}}>
-                            <Todolist
-                                todolist={tl}
-                                // tasks={tasksForTodolist}
-                                removeTask={removeTask}
-                                changeFilter={changeFilter}
-                                addTask={addTask}
-                                changeTaskStatus={changeStatus}
-                                removeTodolist={removeTodolist}
-                                changeTaskTitle={changeTaskTitle}
-                                changeTodolistTitle={changeTodolistTitle}
-                                demo={demo}
-                            />
-                        </Paper>
-                    </Grid>
-                })
-            }
-        </Grid>
+        {/*<Grid container spacing={3}>*/}
+        {/*    {*/}
+        {/*        todolists.map(tl => {*/}
+        {/*            return <Grid item key={tl.id}>*/}
+        {/*                <Paper style={{padding: "10px"}}>*/}
+        {/*                    <Todolist*/}
+        {/*                        todolist={tl}*/}
+        {/*                        // tasks={tasksForTodolist}*/}
+        {/*                        removeTask={removeTask}*/}
+        {/*                        changeFilter={changeFilter}*/}
+        {/*                        addTask={addTask}*/}
+        {/*                        changeTaskStatus={changeStatus}*/}
+        {/*                        removeTodolist={removeTodolist}*/}
+        {/*                        changeTaskTitle={changeTaskTitle}*/}
+        {/*                        changeTodolistTitle={changeTodolistTitle}*/}
+        {/*                        demo={demo}*/}
+        {/*                    />*/}
+        {/*                </Paper>*/}
+        {/*            </Grid>*/}
+        {/*        })*/}
+        {/*    }*/}
+        {/*</Grid>*/}
     </>
 }
 

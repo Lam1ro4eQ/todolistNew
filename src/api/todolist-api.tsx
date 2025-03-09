@@ -56,11 +56,14 @@ export const todoListAPI = {
 export const todolistApi = createApi({
     reducerPath: 'todolistApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: `https://social-network.samuraijs.com/api/1.1/`,
+        baseUrl: process.env.REACT_APP_BASE_URL,
+        prepareHeaders: () => {
+            // headers.set('API-KEY', `${process.env.REACT_APP_API_KEY}`)
+        }
     }),
     endpoints: (builder) => {
         return {
-            getTodoList: builder.query<TodolistType[], undefined>({
+            getTodoList: builder.query<TodolistType[], void>({
                 query: () => {
                     return {
                         method: "GET",
