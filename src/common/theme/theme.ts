@@ -5,7 +5,7 @@ import {ThemeMode} from "../../app/appSlice";
 export const getTheme = (themeMode: ThemeMode) => {
     return createTheme({
         palette: {
-            mode: themeMode === 'light' ? 'light' : 'dark',
+            mode: themeMode,
             primary: {
                 main: '#087EA4',
             },

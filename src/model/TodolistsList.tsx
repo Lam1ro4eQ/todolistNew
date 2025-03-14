@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from "react";
 import {Grid, Paper} from "@mui/material";
-import {TaskStatuses, useGetTodoListQuery} from "../../api/todolist-api";
-import {AddItemForm} from '../../components/AddItemForm/AddItemForm';
+import {TaskStatuses, useGetTodoListQuery} from "../api/todolist-api";
+import {AddItemForm} from '../components/AddItemForm/AddItemForm';
 import {
     addTodolistTC,
     changeTodolistFilter,
@@ -11,10 +11,10 @@ import {
     removeTodolistTC, selectTodolist,
 } from './todolistsSlice';
 import {addTaskTC, removeTaskTC, updateTaskTC} from './tasksSlice';
-import {Todolist} from "./Todolist/Todolist";
+import {Todolist} from "../features/TodolistsList/Todolist/Todolist";
 import {Navigate} from "react-router-dom";
-import {selectAuthLogged} from "../Login/authSlice";
-import {useAppDispatch, useAppSelector} from "../../hooks";
+import {selectAuthLogged} from "../features/Login/authSlice";
+import {useAppDispatch, useAppSelector} from "../hooks";
 
 type PropsType = {
     demo?: boolean
@@ -22,13 +22,13 @@ type PropsType = {
 export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
 
     const dispatch = useAppDispatch()
-    // const todolists = useAppSelector(selectTodolist)
+    const todolists = useAppSelector(selectTodolist)
     const isLoggerIn = useAppSelector(selectAuthLogged)
-    const {} = useGetTodoListQuery()
-    // useEffect(() => {
-    //     if (!isLoggerIn) return
-    //     dispatch(fetschTodolistsTC())
-    // }, [])
+
+    useEffect(() => {
+        if (!isLoggerIn) return
+        dispatch(fetschTodolistsTC())
+    }, [])
 
     const removeTask = useCallback((id: string, todolistId: string) => {
         const thunk = removeTaskTC(id, todolistId)
@@ -76,28 +76,28 @@ export const TodolistsList: React.FC<PropsType> = ({demo = false}) => {
         <Grid container style={{padding: "20px"}}>
             <AddItemForm addItem={addTodolist}/>
         </Grid>
-        {/*<Grid container spacing={3}>*/}
-        {/*    {*/}
-        {/*        todolists.map(tl => {*/}
-        {/*            return <Grid item key={tl.id}>*/}
-        {/*                <Paper style={{padding: "10px"}}>*/}
-        {/*                    <Todolist*/}
-        {/*                        todolist={tl}*/}
-        {/*                        // tasks={tasksForTodolist}*/}
-        {/*                        removeTask={removeTask}*/}
-        {/*                        changeFilter={changeFilter}*/}
-        {/*                        addTask={addTask}*/}
-        {/*                        changeTaskStatus={changeStatus}*/}
-        {/*                        removeTodolist={removeTodolist}*/}
-        {/*                        changeTaskTitle={changeTaskTitle}*/}
-        {/*                        changeTodolistTitle={changeTodolistTitle}*/}
-        {/*                        demo={demo}*/}
-        {/*                    />*/}
-        {/*                </Paper>*/}
-        {/*            </Grid>*/}
-        {/*        })*/}
-        {/*    }*/}
-        {/*</Grid>*/}
+        <Grid container spacing={3}>
+            {
+                todolists.map(tl => {
+                    return <Grid item key={tl.id}>
+                        <Paper style={{padding: "10px"}}>
+                            <Todolist
+                                todolist={tl}
+                                // tasks={tasksForTodolist}
+                                removeTask={removeTask}
+                                // changeFilter={changeFilter}
+                                addTask={addTask}
+                                changeTaskStatus={changeStatus}
+                                removeTodolist={removeTodolist}
+                                changeTaskTitle={changeTaskTitle}
+                                changeTodolistTitle={changeTodolistTitle}
+                                demo={demo}
+                            />
+                        </Paper>
+                    </Grid>
+                })
+            }
+        </Grid>
     </>
 }
 

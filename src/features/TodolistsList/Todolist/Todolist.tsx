@@ -5,8 +5,8 @@ import {IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
 import {Task} from "./Task/Task";
 import {TaskStatuses} from "../../../api/todolist-api";
-import {FilterValuesType, TodolistDomainType} from "../todolistsSlice";
-import {fetschTasksTC, selectTasks} from "../tasksSlice";
+import {FilterValuesType, TodolistDomainType} from "../../../model/todolistsSlice";
+import {fetschTasksTC, selectTasks} from "../../../model/tasksSlice";
 import {useAppDispatch, useAppSelector} from "../../../hooks";
 import {FilterTasksButton} from "../../../components/FilterTasksButton/FilterTasksButton";
 
@@ -14,7 +14,7 @@ import {FilterTasksButton} from "../../../components/FilterTasksButton/FilterTas
 type PropsType = {
     todolist: TodolistDomainType
     removeTask: (taskId: string, todolistId: string) => void
-    changeFilter: (value: FilterValuesType, todolistId: string) => void
+    // changeFilter: (value: FilterValuesType, todolistId: string) => void
     addTask: (title: string, todolistId: string) => void
     changeTaskStatus: (id: string, status: TaskStatuses, todolistId: string) => void
     changeTaskTitle: (taskId: string, newTitle: string, todolistId: string) => void

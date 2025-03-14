@@ -1,14 +1,14 @@
 import './App.css';
 import {Menu} from "@mui/icons-material";
 import {Login} from "../features/Login/Login";
-import {TodolistsList} from "../features/TodolistsList/TodolistsList";
+import {TodolistsList} from "../model/TodolistsList";
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom"
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 import {changeTheme, selectAppIsInitialized, selectAppStatus, selectAppThemeMode} from "./appSlice";
-import {TaskDomainType} from "../features/TodolistsList/tasksSlice";
+import {TaskDomainType} from "../model/tasksSlice";
 import {logOutTC, meTC, selectAuthLogged} from "../features/Login/authSlice";
 import {useAppDispatch, useAppSelector} from "../hooks";
-import {getTheme} from "../components/theme";
+import {getTheme} from "../common/theme";
 import Toolbar from "@mui/material/Toolbar"
 import React, {useEffect} from "react";
 import {
@@ -23,6 +23,7 @@ import {
 } from "@mui/material";
 import {filterButtonsContainerSx} from "../components/FilterTasksButton/FilterTasksButtons.styles";
 import {MenuButton} from "../components/MenuButton/MenuButton";
+import {Header} from "../components/Header/Header";
 
 export type TasksStateType = {
     [key: string]: Array<TaskDomainType>
@@ -37,15 +38,6 @@ function App({demo = true}: PropsType) {
     const isInitialized = useAppSelector(selectAppIsInitialized)
     const themeMode = useAppSelector(selectAppThemeMode)
     const theme = getTheme(themeMode)
-    const isLoggerIn = useAppSelector(selectAuthLogged)
-
-    const changeModeHandler = () => {
-        dispatch(changeTheme({ themeMode: themeMode === 'light' ? 'dark' : 'light' }));
-    }
-
-    const logOut = () => {
-        dispatch(logOutTC())
-    }
 
 
     useEffect(() => {
@@ -64,19 +56,7 @@ function App({demo = true}: PropsType) {
             <CssBaseline />
             <div className="App">
                 <ErrorSnackbar/>
-                <AppBar position="static">
-                    <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-                        <IconButton edge="start" color="inherit" aria-label="menu">
-                            <Menu/>
-                        </IconButton>
-                        <Box sx={filterButtonsContainerSx}>
-                            <MenuButton color="inherit" >News</MenuButton>
-                            {isLoggerIn && <MenuButton background="green" color="inherit" onClick={logOut}>Log out</MenuButton>}
-                            <Switch color={'default'} onChange={changeModeHandler}/>
-                        </Box>
-                    </Toolbar>
-                    {status === 'loading' && <LinearProgress/>}
-                </AppBar>
+                    <Header/>
                 <Container fixed>
                     <BrowserRouter>
                         <Routes>

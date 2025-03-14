@@ -1,5 +1,5 @@
-import {tasksReducer, tasksSlice} from '../features/TodolistsList/tasksSlice';
-import {todolistsReducer, todolistsSlice} from '../features/TodolistsList/todolistsSlice';
+import {tasksReducer, tasksSlice} from '../model/tasksSlice';
+import {todolistsReducer, todolistsSlice} from '../model/todolistsSlice';
 import {appReducer, appSlice} from "./appSlice";
 import {authReducer, authSlice} from "../features/Login/authSlice";
 import {TypedUseSelectorHook, useSelector} from "react-redux";

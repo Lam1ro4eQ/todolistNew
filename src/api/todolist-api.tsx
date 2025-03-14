@@ -57,8 +57,9 @@ export const todolistApi = createApi({
     reducerPath: 'todolistApi',
     baseQuery: fetchBaseQuery({
         baseUrl: process.env.REACT_APP_BASE_URL,
-        prepareHeaders: () => {
-            // headers.set('API-KEY', `${process.env.REACT_APP_API_KEY}`)
+        prepareHeaders: (headers ) => {
+            headers.set('API-KEY', `${process.env.REACT_APP_API_KEY}`)
+            headers.set('Authorization', `Bearer ${localStorage.getItem('sn-token')}`)
         }
     }),
     endpoints: (builder) => {

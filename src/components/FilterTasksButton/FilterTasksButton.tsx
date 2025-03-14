@@ -1,5 +1,5 @@
 import React from "react";
-import {changeTodolistFilter, FilterValuesType, TodolistDomainType} from "../../features/TodolistsList/todolistsSlice";
+import {changeTodolistFilter, FilterValuesType, TodolistDomainType} from "../../model/todolistsSlice";
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {Box, Button} from "@mui/material";
 import {filterButtonsContainerSx} from "./FilterTasksButtons.styles";
