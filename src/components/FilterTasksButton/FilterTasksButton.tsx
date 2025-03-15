@@ -9,27 +9,27 @@ type Props = {
 }
 
 export const FilterTasksButton = ({todolist}:Props) => {
-    const { filter, id } = todolist
 
+    const { filter, id } = todolist
     const dispatch = useAppDispatch()
 
-    const changeFilterTasksHandler = (filter: FilterValuesType) => {
+    const changeFilter = (filter: FilterValuesType) => {
         dispatch(changeTodolistFilter({ id, filter }))
     }
 
     return (
         <Box sx={filterButtonsContainerSx}>
             <Button variant={filter === 'all' ? 'outlined' : 'text'}
-                    onClick={() => changeFilterTasksHandler('all')}
+                    onClick={() => changeFilter('all')}
                     color={'inherit'}
             >All
             </Button>
             <Button variant={filter === 'active' ? 'outlined' : 'text'}
-                    onClick={() => changeFilterTasksHandler('active')}
+                    onClick={() => changeFilter('active')}
                     color={'primary'}>Active
             </Button>
             <Button variant={filter === 'completed' ? 'outlined' : 'text'}
-                    onClick={() => changeFilterTasksHandler('completed')}
+                    onClick={() => changeFilter('completed')}
                     color={'secondary'}>Completed
             </Button>
         </Box>

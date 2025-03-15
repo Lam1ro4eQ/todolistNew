@@ -5,7 +5,6 @@ import {RequestStatusType, setAppStatus,} from "../app/appSlice";
 import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
 import {createSlice} from "@reduxjs/toolkit";
 import {addTodolist, removeTodolist} from "./todolistsSlice";
-import {TasksStateType} from "../app/App";
 
 
 export const tasksSlice = createSlice({
@@ -167,8 +166,9 @@ type UpdateTaskDomainModelType = {
     entityStatus?: RequestStatusType
 }
 
-
-
+export type TasksStateType = {
+    [key: string]: Array<TaskDomainType>
+}
 
 
 export type TaskDomainType = TaskType & {
