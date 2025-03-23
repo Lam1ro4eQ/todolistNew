@@ -1,11 +1,11 @@
 import React, {useCallback, useEffect} from "react";
 import {Grid} from "@mui/material";
 import {AddItemForm} from '../AddItemForm/AddItemForm';
-import {addTodolistTC, fetschTodolistsTC,} from '../../model/todolistsSlice';
+import {addTodolistTC, fetschTodolistsTC,} from '../../../features/TodolistsList/model/todolistsSlice';
 import {Navigate} from "react-router-dom";
-import {selectAuthLogged} from "../../features/Login/authSlice";
-import {useAppDispatch, useAppSelector} from "../../hooks";
-import {TodolistsList} from "../../features/TodolistsList/TodolistsList";
+import {selectAuthLogged} from "../../../features/Login/authSlice";
+import {useAppDispatch, useAppSelector} from "../../../hooks";
+import {TodolistsList} from "../../../features/TodolistsList/ui/TodolistsList/TodolistsList";
 
 
 export const Main = () => {

@@ -1,8 +1,8 @@
 import {Dispatch} from "redux";
-import {TaskPriorities, TaskStatuses, TaskType, todoListAPI, UpdateTaskModelType} from "../api/todolist-api";
-import {AppRootStateType} from "../app/store";
-import {RequestStatusType, setAppStatus,} from "../app/appSlice";
-import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
+import {TaskPriorities, TaskStatuses, TaskType, todoListAPI, UpdateTaskModelType} from "../../../api/todolist-api";
+import {AppRootStateType} from "../../../app/store";
+import {RequestStatusType, setAppStatus,} from "../../../app/appSlice";
+import {handleServerAppError, handleServerNetworkError} from "../../../utils/error-utils";
 import {createSlice} from "@reduxjs/toolkit";
 import {addTodolist, removeTodolist} from "./todolistsSlice";
 

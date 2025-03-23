@@ -1,13 +1,11 @@
 import React, {useCallback, useEffect} from 'react';
-import {AddItemForm} from '../../../components/AddItemForm/AddItemForm';
-import {Task} from "./Task/Task";
-import {TaskStatuses} from "../../../api/todolist-api";
+import {AddItemForm} from '../../../../../common/components/AddItemForm/AddItemForm';
 import {TodolistDomainType} from "../../../model/todolistsSlice";
-import {addTaskTC, fetschTasksTC, selectTasks} from "../../../model/tasksSlice";
-import {useAppDispatch, useAppSelector} from "../../../hooks";
-import {FilterTasksButton} from "../../../components/FilterTasksButton/FilterTasksButton";
-import {TodolistTitle} from "../../../components/TodolistTitle/TodolistTitle";
-import {Tasks} from "../../Tasks/Tasks";
+import {addTaskTC, fetschTasksTC} from "../../../model/tasksSlice";
+import {useAppDispatch} from "../../../../../hooks";
+import {FilterTasksButton} from "./FilterTasksButton/FilterTasksButton";
+import {TodolistTitle} from "./TodolistTitle/TodolistTitle";
+import {Tasks} from "./Tasks/Tasks";
 
 
 type PropsType = {

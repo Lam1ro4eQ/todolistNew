@@ -1,16 +1,16 @@
 import './App.css';
 import {Login} from "../features/Login/Login";
-import {Main} from "../components/Main/Main";
+import {Main} from "../common/components/Main/Main";
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom"
-import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
+import {ErrorSnackbar} from "../common/components/ErrorSnackbar/ErrorSnackbar";
 import {selectAppIsInitialized, selectAppThemeMode} from "./appSlice";
-import {TaskDomainType} from "../model/tasksSlice";
+import {TaskDomainType} from "../features/TodolistsList/model/tasksSlice";
 import {meTC} from "../features/Login/authSlice";
 import {useAppDispatch, useAppSelector} from "../hooks";
 import {getTheme} from "../common/theme";
 import React, {useEffect} from "react";
 import {CircularProgress, Container, CssBaseline, ThemeProvider} from "@mui/material";
-import {Header} from "../components/Header/Header";
+import {Header} from "../common/components/Header/Header";
 
 
 

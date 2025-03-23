@@ -1,5 +1,5 @@
-import {todoListAPI, TodolistType} from "../api/todolist-api";
-import {RequestStatusType, setAppStatus} from "../app/appSlice";
+import {todoListAPI, TodolistType} from "../../../api/todolist-api";
+import {RequestStatusType, setAppStatus} from "../../../app/appSlice";
 import {createSlice} from "@reduxjs/toolkit";
 
 

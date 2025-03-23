@@ -3,9 +3,9 @@ import {
     changeTodolistTitle,
     removeTodolist, setTodolists, TodolistDomainType, todolistsReducer,
     todolistsSlice
-} from './todolistsSlice';
+} from '../todolistsSlice';
 import {v1} from 'uuid';
-import {RequestStatusType} from "../app/appSlice";
+import {RequestStatusType} from "../../../../app/appSlice";
 
 
 let todolistId1: string;

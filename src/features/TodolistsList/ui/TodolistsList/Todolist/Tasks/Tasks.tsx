@@ -1,9 +1,9 @@
 import React from "react";
-import {Task, TaskPropsType} from "../TodolistsList/Todolist/Task/Task";
-import {TaskStatuses} from "../../api/todolist-api";
-import {useAppSelector} from "../../hooks";
-import {selectTasks} from "../../model/tasksSlice";
-import {TodolistDomainType} from "../../model/todolistsSlice";
+import {TaskStatuses} from "../../../../../../api/todolist-api";
+import {useAppSelector} from "../../../../../../hooks";
+import {selectTasks} from "../../../../model/tasksSlice";
+import {TodolistDomainType} from "../../../../model/todolistsSlice";
+import {Task} from "./Task/Task";
 
 type PropsType = {
     todolist: TodolistDomainType

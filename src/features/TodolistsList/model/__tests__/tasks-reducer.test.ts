@@ -2,9 +2,9 @@ import {
     addTask,
     removeTask, setTasks,
     tasksReducer, TasksStateType, updateTask,
-} from './tasksSlice';
-import {addTodolist, removeTodolist, setTodolists} from './todolistsSlice';
-import {TaskPriorities, TaskStatuses} from "../api/todolist-api";
+} from '../tasksSlice';
+import {addTodolist, removeTodolist, setTodolists} from '../todolistsSlice';
+import {TaskPriorities, TaskStatuses} from "../../../../api/todolist-api";
 
 
 let startState: TasksStateType = {};

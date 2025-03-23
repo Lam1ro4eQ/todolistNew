@@ -1,9 +1,9 @@
 import React, {useCallback} from "react";
-import {EditableSpan} from "../EditableSpan/EditableSpan";
+import {EditableSpan} from "../../../../../../common/components/EditableSpan/EditableSpan";
 import {IconButton} from "@mui/material";
 import {Delete} from "@mui/icons-material";
-import {changeTodolistTitleTC, removeTodolistTC, selectTodolist, TodolistDomainType} from "../../model/todolistsSlice";
-import {useAppDispatch, useAppSelector} from "../../hooks";
+import {changeTodolistTitleTC, removeTodolistTC, selectTodolist, TodolistDomainType} from "../../../../model/todolistsSlice";
+import {useAppDispatch, useAppSelector} from "../../../../../../hooks";
 
 type Props = {
     todolist: TodolistDomainType

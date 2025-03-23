@@ -1,12 +1,12 @@
 import Toolbar from "@mui/material/Toolbar";
 import {AppBar, Box, IconButton, LinearProgress, Switch} from "@mui/material";
 import {Menu} from "@mui/icons-material";
-import {filterButtonsContainerSx} from "../FilterTasksButton/FilterTasksButtons.styles";
+import {filterButtonsContainerSx} from "../../../features/TodolistsList/ui/TodolistsList/Todolist/FilterTasksButton/FilterTasksButtons.styles";
 import {MenuButton} from "../MenuButton/MenuButton";
 import React from "react";
-import {changeTheme, selectAppStatus, selectAppThemeMode} from "../../app/appSlice";
-import {useAppDispatch, useAppSelector} from "../../hooks";
-import {logOutTC, selectAuthLogged} from "../../features/Login/authSlice";
+import {changeTheme, selectAppStatus, selectAppThemeMode} from "../../../app/appSlice";
+import {useAppDispatch, useAppSelector} from "../../../hooks";
+import {logOutTC, selectAuthLogged} from "../../../features/Login/authSlice";
 
 export const Header = () => {
 

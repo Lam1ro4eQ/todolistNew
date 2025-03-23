@@ -1,10 +1,10 @@
 import React, {ChangeEvent, useCallback} from "react";
 import {Checkbox, IconButton} from "@mui/material";
-import {EditableSpan} from "../../../../components/EditableSpan/EditableSpan";
+import {EditableSpan} from "../../../../../../../common/components/EditableSpan/EditableSpan";
 import {Delete} from "@mui/icons-material";
-import {TaskStatuses} from "../../../../api/todolist-api";
-import {removeTaskTC, TaskDomainType, updateTaskTC} from "../../../../model/tasksSlice";
-import {useAppDispatch} from "../../../../hooks";
+import {TaskStatuses} from "../../../../../../../api/todolist-api";
+import {removeTaskTC, TaskDomainType, updateTaskTC} from "../../../../../model/tasksSlice";
+import {useAppDispatch} from "../../../../../../../hooks";
 
 export type TaskPropsType = {
     task: TaskDomainType
@@ -25,11 +25,11 @@ export const Task = React.memo((props: TaskPropsType) => {
         dispatch(thunk);
     }
 
-    const removeTask = (id: string, todolistId: string) => {
-        dispatch(removeTaskTC(id, todolistId))
-    }
+    const removeTask = () => {
+        dispatch(removeTaskTC(props.task.id, props.todolistID));
+    };
 
-    const onClickHandler = () => removeTask(props.task.id, props.todolistID)
+    // const onClickHandler = () => removeTask(props.task.id, props.todolistID)
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         let newIsDoneValue = e.currentTarget.checked;
@@ -37,14 +37,11 @@ export const Task = React.memo((props: TaskPropsType) => {
     }
 
 
-
-
-
     const onTitleChangeHandler = useCallback((newValue: string) => {
         changeTaskTitle(props.task.id, newValue, props.todolistID);
     }, [props.task.id, props.todolistID])
 
-    return <div key={props.task.id} className={props.task.status === TaskStatuses.Completed ? "is-done" : ""}>
+    return <div className={props.task.status === TaskStatuses.Completed ? "is-done" : ""}>
         <Checkbox
             checked={props.task.status === TaskStatuses.Completed }
             color="primary"
@@ -53,7 +50,7 @@ export const Task = React.memo((props: TaskPropsType) => {
         />
 
         <EditableSpan value={props.task.title} onChange={onTitleChangeHandler} disabled={props.task.entityStatus === 'loading' || props.disabled}/>
-        <IconButton onClick={onClickHandler} disabled={props.task.entityStatus === 'loading' || props.disabled}>
+        <IconButton onClick={removeTask} disabled={props.task.entityStatus === 'loading' || props.disabled}>
             <Delete/>
 
         </IconButton>
